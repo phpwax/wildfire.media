@@ -14,6 +14,7 @@ if(defined("CONTENT_MODEL")){
   });
 }
 
+CMSApplication::$handlers['media'][] = 'WildfireMedia';
 
 WildfireMedia::$classes[] = 'WildfireDiskFile';
 //set the default media types for uploads

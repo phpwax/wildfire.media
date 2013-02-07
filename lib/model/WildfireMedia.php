@@ -71,5 +71,34 @@ class WildfireMedia extends WaxModel{
     return $this->filter("status", "-1", "!=");
   }
 
+  public function file_meta_set($primval, $fileid, $tag, $order=0, $title='', $table, $primary_key){
+    $model = new WaxModel;
+    if($table < $this->table) $model->table = $table."_".$this->table;
+    else $model->table = $this->table."_".$table;
+
+    $col = $table."_".$primary_key;
+    if(!$order) $order = 0;
+    if(($found = $model->filter($col, $primval)->filter($this->table."_id", $fileid)->all()) && $found->count()){
+      foreach($found as $r){
+        $sql = "UPDATE `".$model->table."` SET `join_order`=$order, `tag`='$tag', `title`='$title' WHERE `id`=$r->primval";
+        $model->query($sql);
+      }
+    }else{
+      $sql = "INSERT INTO `".$model->table."` (`".$this->table."_id`, `$col`, `join_order`, `tag`, `title`) VALUES ('$fileid', '$primval', '$order', '$tag', '$title')";
+      $model->query($sql);
+    }
+  }
+
+  public function file_meta_get($primval, $fileid, $tag, $table, $primary_key){
+    $model = new WaxModel;
+    if($table < $this->table) $model->table = $table."_".$this->table;
+    else $model->table = $this->table."_".$table;
+    $col = $table."_".$primary_key;
+    if($fileid) return $model->filter($col, $primval)->filter($this->table."_id", $fileid)->order('join_order ASC')->first();
+    elseif($tag=="all") return $model->filter($col, $primval)->order('join_order ASC')->all();
+    elseif($tag) return $model->filter($col, $primval)->filter("tag", $tag)->order('join_order ASC')->all();
+    else return false;
+  }
+
 }
 ?>
