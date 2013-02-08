@@ -15,6 +15,8 @@ if(defined("CONTENT_MODEL")){
 }
 
 CMSApplication::$handlers['media'][] = 'WildfireMedia';
+//add in a global partial that will be loaded in on every page to handle uploads
+CMSApplication::$global_partials[] = "_upload_block";
 
 WildfireMedia::$classes[] = 'WildfireDiskFile';
 //set the default media types for uploads
