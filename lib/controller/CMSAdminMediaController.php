@@ -30,7 +30,7 @@ class CMSAdminMediaController extends AdminComponent{
     WaxEvent::add("cms.layout.sublinks", function(){
       $obj = WaxEvent::data();
       $mods = CMSApplication::get_modules();
-      $obj->quick_links = array('sync Media'=>"/".trim($obj->controller, "/")."/sync/");
+      $obj->quick_links = array('sync'=>"/".trim($obj->controller, "/")."/sync/");
     });
 
     WaxEvent::add('cms.sync.class', function(){
