@@ -5,10 +5,10 @@ $(document).ready(function() {
 
 var wildfire_uploader = {
   
-  var dialog_selector = "#wildfire_uploader";
-  var dialog_template = '<div id="wildfire_uploader"></div>';
-  var progress_template = '<div id="progress"><div class="bar" style="width: 0%;"></div></div>';
-  var url = "/admin/media/upload";
+  dialog_selector = "#wildfire_uploader",
+  dialog_template = '<div id="wildfire_uploader"></div>',
+  progress_template = '<div id="progress"><div class="bar" style="width: 0%;"></div></div>',
+  url = "/admin/media/upload",
   
   init: function() {
     this.setup_listener();
