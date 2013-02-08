@@ -7,4 +7,7 @@ body.fu-dragover #upload_indicator {
   left:0;
   z-index:9999;
   border:8px dashed #DDD;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.2);
 }
