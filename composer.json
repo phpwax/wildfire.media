@@ -13,7 +13,7 @@
     "license": "MIT",
     "autoload": {
       "classmap": [
-        "lib/", "resources/", "view/"
+        "lib/", "resources/"
       ],
       "files": ["ini.php"]
     }
