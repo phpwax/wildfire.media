@@ -1,13 +1,13 @@
 body.fu-dragover {
-
+  box-shadow: inset 0 0 5px 5px rgba(0,0,0,0.8);
 }
 body.fu-dragover #upload_indicator {
   position:absolute;
   top:0;
   left:0;
   z-index:9999;
-  border:8px dashed #DDD;
-  width:100%;
-  height:100%;
+  border:8px dashed #FFF;
+  width:99%;
+  height:99%;
   background:rgba(0,0,0,0.2);
 }
