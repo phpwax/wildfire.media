@@ -28,6 +28,15 @@ class MediaTest extends \PHPUnit_Framework_TestCase {
     unlink($new_media->uploaded_location);
   }
   
+  public function test_upload_from_data() {
+    $media = new WildfireMedia;
+    $file = "A Random String File";
+    $options["destination"] = __DIR__."/";
+    $new_media = $media->upload($file, $options);
+    $this->assertEquals($new_media->file_type, "text/plain");
+    unlink($new_media->uploaded_location);
+  }
+  
   
 }
   
