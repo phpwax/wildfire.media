@@ -109,7 +109,62 @@ class WildfireDiskFile{
 
     return $info;
   }
+  
+  
+  /**
+   * Takes a file stream and additional options to upload a new file
+   *
+   * @param string $stream / detects filename, stream, data
+   * @param string $options ("destination","file_type") 
+   * @return created object
+   */
+  public function upload($stream, $options = array()) {
+    if(is_file($stream)) {
+      $file_data = file_get_contents($stream);
+      $filename = $options["filename"] ?: basename($stream);
+    } elseif(is_string($stream) && strlen($stream) > 1) {
+      $file_data = $stream;
+      $filename = $options["filename"] ?: time();
+    }
+    
+    if($filename && $file_data) {
+      if(!$options["destination"]) $options["destination"] = $this->generate_fs_path($filename);
+      $final_location = $options["destination"].$filename;
+      $success = file_put_contents($final_location , $file_data);
+      if($success) {
+        return $this->get_meta($filename, $file_data, $final_location);
+      }
+    }
+    return false;
+  }
+  
+  public function get_meta($filename, $data, $final_location) {
+    $meta["title"] = basename($filename, ".".$this->get_extension($filename));
+    $meta["file_type"] = $this->get_filetype($data);
+    $meta["media_class"] = get_class($this);
+    $meta["hash"] = hash_hmac('sha1', $data, md5($data));
+    $meta["ext"] = $this->get_extension($filename);
+    $meta["uploaded_location"] = str_replace(PUBLIC_DIR, "", $final_location);    
+    return $meta;
+  }
+  
+  public function generate_fs_path($filename) {
+    $path = PUBLIC_DIR. "files/".date("Y-m-W")."/";
+    if(!is_dir($path)) mkdir($path, 0777, true);
+    $filename = File::safe_file_save($path, $filename);
+    return $path.$filename;
+  }
+  
+  public function get_filetype($data) {
+    $finfo = new \finfo(FILEINFO_MIME_TYPE);
+    return $finfo->buffer($data);
+  }
+  
+  public function get_extension($filename) {
+    return pathinfo($filename, PATHINFO_EXTENSION);
+  }
+
+  
 
 
 }
-?>

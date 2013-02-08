@@ -99,6 +99,33 @@ class WildfireMedia extends WaxModel{
     elseif($tag) return $model->filter($col, $primval)->filter("tag", $tag)->order('join_order ASC')->all();
     else return false;
   }
+  
+  public function upload($stream, $options = array()) {
+    $handler_class = $this->get_handler($stream);
+    $handler = new $handler_class;
+    $meta = $handler->upload($stream, $options);
+    
+    // Upload failed, return false now
+    if(!$meta) return false;
+    
+    // Continue and create the new media object
+    $meta = array_merge($options, $meta);
+    $object = new WildfireMedia();
+    $object->set_attributes($meta);
+    return $object;
+  }
+
+ 
+  
+  public function get_handler($filename) {
+    $ext = (substr(strrchr($filename,'.'),1));
+    $check = strtolower($ext);
+    //find the class associated with that file
+    $setup = WildfireMedia::$allowed;
+    if($setup[$check]) return $setup[$check];
+    return "WildfireDiskFile";
+  }
+  
+
 
 }
-?>

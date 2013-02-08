@@ -1,0 +1,297 @@
+{
+    "hash": "93a8882cac90b7b9f737985a8d5799cf",
+    "packages": [
+        {
+            "name": "kriswallsmith/assetic",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "http://github.com/kriswallsmith/assetic.git",
+                "reference": "faf3b245977d8bc06c9da4710dbcad37756993a9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kriswallsmith/assetic/zipball/faf3b245977d8bc06c9da4710dbcad37756993a9",
+                "reference": "faf3b245977d8bc06c9da4710dbcad37756993a9",
+                "shasum": ""
+            },
+            "require": {
+                "symfony/process": ">=2.1.0,<2.3-dev",
+                "php": ">=5.3.1"
+            },
+            "require-dev": {
+                "twig/twig": ">=1.6.0,<2.0",
+                "leafo/lessphp": "*",
+                "leafo/scssphp": "*",
+                "ptachoire/cssembed": "*",
+                "leafo/scssphp-compass": "*",
+                "cssmin/cssmin": "*",
+                "mrclay/minify": "*",
+                "kamicane/packager": "*",
+                "joliclic/javascript-packer": "*"
+            },
+            "suggest": {
+                "twig/twig": "Assetic provides the integration with the Twig templating engine",
+                "leafo/lessphp": "Assetic provides the integration with the lessphp LESS compiler",
+                "leafo/scssphp": "Assetic provides the integration with the scssphp SCSS compiler",
+                "ptachoire/cssembed": "Assetic provides the integration with phpcssembed to embed data uris",
+                "leafo/scssphp-compass": "Assetic provides the integration with the SCSS compass plugin"
+            },
+            "time": "2013-01-31 17:45:10",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Assetic": "src/"
+                },
+                "files": [
+                    "src/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kris Wallsmith",
+                    "email": "kris.wallsmith@gmail.com",
+                    "homepage": "http://kriswallsmith.net/"
+                }
+            ],
+            "description": "Asset Management for PHP",
+            "homepage": "https://github.com/kriswallsmith/assetic",
+            "keywords": [
+                "assets",
+                "compression",
+                "minification"
+            ]
+        },
+        {
+            "name": "phpwax/asset",
+            "version": "dev-master",
+            "target-dir": "Wax/Asset",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpwax/asset",
+                "reference": "2446f255307a8f46f8628e20487503c3e2307ce5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpwax/asset/zipball/2446f255307a8f46f8628e20487503c3e2307ce5",
+                "reference": "2446f255307a8f46f8628e20487503c3e2307ce5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "kriswallsmith/assetic": "1.1.*@dev",
+                "phpwax/phpwax": "3.2.*",
+                "symfony/http-foundation": "2.2.*@dev"
+            },
+            "time": "2013-01-27 16:57:56",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Wax\\Asset": ""
+                },
+                "files": [
+                    "Wax/Asset/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ross Riley",
+                    "email": "ross@oneblackbear.com"
+                },
+                {
+                    "name": "Charles Marshall",
+                    "email": "charles@oneblackbear.com"
+                },
+                {
+                    "name": "Sheldon Els",
+                    "email": "sheldon@oneblackbear.com"
+                }
+            ],
+            "description": "Wax Asset Bridge",
+            "homepage": "http://php-wax.com",
+            "keywords": [
+                "asset"
+            ]
+        },
+        {
+            "name": "phpwax/phpwax",
+            "version": "3.2.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpwax/phpwax",
+                "reference": "f5cb9dad2ff37ea7accc290c74d63df4534254e7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpwax/phpwax/zipball/f5cb9dad2ff37ea7accc290c74d63df4534254e7",
+                "reference": "f5cb9dad2ff37ea7accc290c74d63df4534254e7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3",
+                "phpwax/asset": "1.0.*@dev"
+            },
+            "time": "2013-02-08 11:19:07",
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "Auth/",
+                    "Cache/",
+                    "config/",
+                    "core/",
+                    "Db/",
+                    "dispatch/",
+                    "Exceptions/",
+                    "forms/",
+                    "helpers/",
+                    "interfaces/",
+                    "Template/",
+                    "Utilities/",
+                    "AutoLoader.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Charles Marshall",
+                    "email": "charles@oneblackbear.com"
+                },
+                {
+                    "name": "Sheldon Els",
+                    "email": "sheldon@oneblackbear.com"
+                },
+                {
+                    "name": "Ross Riley",
+                    "email": "riley.ross@gmail.com"
+                }
+            ],
+            "description": "The Full Stack Version of the PHP Wax Framework"
+        },
+        {
+            "name": "symfony/http-foundation",
+            "version": "2.2.x-dev",
+            "target-dir": "Symfony/Component/HttpFoundation",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/HttpFoundation",
+                "reference": "50fc78802bdd2004944a937f864f7d8562306680"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/HttpFoundation/zipball/50fc78802bdd2004944a937f864f7d8562306680",
+                "reference": "50fc78802bdd2004944a937f864f7d8562306680",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "time": "2013-02-07 15:26:12",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\HttpFoundation\\": ""
+                },
+                "classmap": [
+                    "Symfony/Component/HttpFoundation/Resources/stubs"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony HttpFoundation Component",
+            "homepage": "http://symfony.com"
+        },
+        {
+            "name": "symfony/process",
+            "version": "2.2.x-dev",
+            "target-dir": "Symfony/Component/Process",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Process",
+                "reference": "861d3e667518e19b211c4f10e7f8b61ada463eef"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Process/zipball/861d3e667518e19b211c4f10e7f8b61ada463eef",
+                "reference": "861d3e667518e19b211c4f10e7f8b61ada463eef",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "time": "2013-01-31 18:27:04",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Process\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Process Component",
+            "homepage": "http://symfony.com"
+        }
+    ],
+    "packages-dev": null,
+    "aliases": [
+
+    ],
+    "minimum-stability": "dev",
+    "stability-flags": [
+
+    ]
+}
