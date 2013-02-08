@@ -1,0 +1,10 @@
+body.fu-dragover {
+
+}
+body.fu-dragover #upload_indicator {
+  position:absolute;
+  top:0;
+  left:0;
+  z-index:9999;
+  border:8px dashed #DDD;
+}
