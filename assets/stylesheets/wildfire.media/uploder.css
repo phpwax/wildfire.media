@@ -16,5 +16,6 @@ body.fu-dragover #upload_indicator {
   border:7px dashed #FFF;
   width:98%;
   height:98%;
-  background:rgba(0,0,0,0.2);
+  background:rgba(0,0,0,0.4);
+  content:"Drop files to upload";
 }
