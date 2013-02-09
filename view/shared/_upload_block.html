@@ -13,12 +13,15 @@
       <a class="button collection-save" data-action="/<?=trim($controller,"/")?>/media_name/">Save</a>
     </div>
     <div class="in-progress-message">
-      <p>Your upload is in progress, why not add a name to your collection?</p>
+      <p class='suggest-name'>Your upload is in progress, why not add a name to your collection?</p>
+      <div class='progress progress-striped active'><div class="bar"></div></div><div class="progress-total">0%</div>
     </div>
     <div class="event-info" data-event-name=""></div>
+    <div class="file-collection-name"></div>
     <div class='file-list drop-list clearfix'></div>
-
   </div>
+  <a class="button finish-button">Finish</a>
+  
 </div>
 
 <div class='uploading_container' id="old-upload-dialog">

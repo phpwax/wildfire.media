@@ -18,11 +18,17 @@ jQuery(document).ready(function($){
 					;
 			// Update progress bar
 			xhr.upload.addEventListener("progress", function (evt) {
-				if (evt.lengthComputable) progress_bar.find("span").html(Math.round((evt.loaded / evt.total) * 100));
+				if (evt.lengthComputable) {
+          progress_bar.find("span").html(Math.round((evt.loaded / evt.total) * 100))
+          progress_bar.find("span").data("progress-loaded",evt.loaded)
+          progress_bar.find("span").data("progress-total",evt.total);
+          jQuery(window).trigger("file.upload.progress", [evt]);
+        }
 			}, false);
 			//loaded event
 			xhr.addEventListener("load", function () {
 				file_div.removeClass("fu-in-progress").addClass('fu-completed');
+        jQuery(window).trigger("file.upload.change", [file_div]);
 				//refresh the listing
 				list_area.parents(".upload_block").siblings(".index_container").find("fieldset.filters_container input[type='text']").trigger("change");
 
@@ -39,11 +45,12 @@ jQuery(document).ready(function($){
 			xhr.send(file);
 		});
 		//not allowed - end point (possibly add in extra info about why etc later on)
-		jQuery(window).bind("file.upload.not_allowed", function(e, i, file, drop_area, list_area){
-			list_area.find(".fu-"+i).addClass('fu-error').fadeOut(50000, function(){ jQuery(this).remove(); });
+		jQuery(window).bind("file.upload.not_allowed", function(e, i, file, drop_area, list_area, entry){
+			list_area.find(".fu-"+i).addClass('fu-error');
+      $(entry).find("img").remove();
 		});
 		//check if the file is allowed to be uploaded
-		jQuery(window).bind("file.upload.allowed", function(e, i, file, drop_area, list_area){
+		jQuery(window).bind("file.upload.allowed", function(e, i, file, drop_area, list_area, entry){
 			var dest = jQuery("#main-upload-dialog").data("allowed-check"),
 					data = {filename:file.name}
 					;
@@ -53,11 +60,11 @@ jQuery(document).ready(function($){
 				method:"post",
 				dataType:"json",
 				success: function(res){
-					if(res.error.length) jQuery(window).trigger("file.upload.not_allowed", [i, file, drop_area, list_area]);
+					if(res.error.length) jQuery(window).trigger("file.upload.not_allowed", [i, file, drop_area, list_area, entry]);
 					else jQuery(window).trigger("file.upload.run", [i, file, drop_area, list_area]);
 				},
 				error: function(){
-					jQuery(window).trigger("file.upload.not_allowed", [i, file, drop_area, list_area])
+					jQuery(window).trigger("file.upload.not_allowed", [i, file, drop_area, list_area, entry])
 				}
 			});
 
@@ -70,21 +77,21 @@ jQuery(document).ready(function($){
 					entry = document.createElement("div");
 					;
 			list_area.addClass("fu-uploading-active");
-			jQuery(img).attr('width', 40);
+			jQuery(img).attr('width', 60).css("height","50px");
 			jQuery(entry).addClass("fu-"+i+" file-summary clearfix fu-uploading").html("<strong class='file-name'>"+file.name+"</strong>").prepend(img);
 			if (typeof FileReader !== "undefined" && (/image/i).test(file.type)){
 				reader = new FileReader();
 				reader.onload = (function (theImg) {
 					return function (evt) {
 						theImg.src = evt.target.result;
-						theImg.width = 40;
+						theImg.width = 60;
 					};
 				}(img));
 				reader.readAsDataURL(file);
 			}
 			list_area.append(entry);
 			//now its been added, trigger an event to see if we should upload it or not
-			jQuery(window).trigger("file.upload.allowed", [i, file, drop_area, list_area]);
+			jQuery(window).trigger("file.upload.allowed", [i, file, drop_area, list_area, entry]);
 		});
 		//main upload function calling other events
 		jQuery(window).bind("file.upload.all", function(e, files, drop_area, list_area){
