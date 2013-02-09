@@ -12,7 +12,7 @@ jQuery(document).ready(function($){
 		//allowed, so handle the upload
 		jQuery(window).bind("file.upload.run", function(e, i, file, drop_area, list_area){
 			var file_div = list_area.find(".fu-"+i).addClass("fu-in-progress").append(" <span class='percentage'><span>0</span>% uploaded</span>"),
-					dest = drop_area.data("html5-action"),
+					dest = $("#main-upload-dialog").data("html5-action"),
 					progress_bar = file_div.find("span.percentage"),
 					xhr = new XMLHttpRequest()
 					;
@@ -22,7 +22,7 @@ jQuery(document).ready(function($){
 			}, false);
 			//loaded event
 			xhr.addEventListener("load", function () {
-				file_div.removeClass("fu-in-progress").addClass('fu-completed').fadeOut(5000, function(){ jQuery(this).remove(); });
+				file_div.removeClass("fu-in-progress").addClass('fu-completed');
 				//refresh the listing
 				list_area.parents(".upload_block").siblings(".index_container").find("fieldset.filters_container input[type='text']").trigger("change");
 
@@ -34,7 +34,7 @@ jQuery(document).ready(function($){
 			xhr.setRequestHeader("X-File-Name", file.name);
 			xhr.setRequestHeader("X-File-Size", file.size);
 			xhr.setRequestHeader("X-File-Type", file.type);
-			xhr.setRequestHeader("X-File-Categories", drop_area.siblings(".category_tagging").val());
+			xhr.setRequestHeader("X-File-EventTimestamp", $("#main-upload-dialog .event-info").data("event-name"));
 			// Send the file (doh)
 			xhr.send(file);
 		});
@@ -44,7 +44,7 @@ jQuery(document).ready(function($){
 		});
 		//check if the file is allowed to be uploaded
 		jQuery(window).bind("file.upload.allowed", function(e, i, file, drop_area, list_area){
-			var dest = jQuery(drop_area).data("allowed-check"),
+			var dest = jQuery("#main-upload-dialog").data("allowed-check"),
 					data = {filename:file.name}
 					;
 			jQuery.ajax({
@@ -82,10 +82,9 @@ jQuery(document).ready(function($){
 				}(img));
 				reader.readAsDataURL(file);
 			}
-
 			list_area.append(entry);
 			//now its been added, trigger an event to see if we should upload it or not
-			jQuery(window).trigger("file.upload.allowed", [i, file, drop_area, list_area])
+			jQuery(window).trigger("file.upload.allowed", [i, file, drop_area, list_area]);
 		});
 		//main upload function calling other events
 		jQuery(window).bind("file.upload.all", function(e, files, drop_area, list_area){
@@ -117,8 +116,7 @@ jQuery(document).ready(function($){
 			e.stopPropagation();
 			jQuery(this).addClass("fu-drop").removeClass("fu-dragover fu-dragenter");
 			var t = document.getElementById(jQuery(this).attr('id')),
-					list_area = jQuery(this).siblings(".drop-list")
-					;
+					list_area = jQuery(this).find(".drop-list");
 			jQuery(window).trigger("file.upload.all", [e.dataTransfer.files, jQuery(this), list_area]);
 		});
 	}else{

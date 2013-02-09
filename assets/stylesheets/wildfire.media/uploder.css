@@ -20,4 +20,33 @@ body.fu-dragover #upload_indicator {
 }
 body.fu-dragover #upload_indicator:after {
   content:"Drop files to upload";
+  color:white;
+  font-size:250%;
+  text-align:center;
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:200px;
+  margin-left:-100px;
+  margin-top:-20px;
+}
+
+.uploading_container {
+  display:none;
+}
+
+.uploading_container .category_tagging {
+  width:60%;
+}
+.uploading_container .collection-name {
+  width:75%;
+  text-align:center;
+  margin:5px auto;
+}
+
+.uploading_container .in-progress-message p {
+  font-size:93%;
+  font-weight:800;
+  margin:12px 0;
+  font-family:"Open Sans";
 }

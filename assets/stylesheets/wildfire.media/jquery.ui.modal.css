@@ -1,0 +1,21 @@
+
+.wildfire-upload {
+  border:10px solid #8e8e8e;
+  border:10px solid rgba(0,0,0,0.4);
+  background:white;
+  width:60%;
+  border-radius:0;
+}
+.wildfire-upload .ui-dialog-titlebar {
+  background:none;
+  border:0;
+  background:url(/images/wildfire.media/file-icon.png) no-repeat center center;
+  height:200px;
+  position:relative;
+  top:-140px;
+  margin-bottom:-140px;
+}
+.wildfire-upload .ui-widget-content {
+  border:0;
+  padding:10px 50px;
+}

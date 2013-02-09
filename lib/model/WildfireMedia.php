@@ -32,7 +32,8 @@ class WildfireMedia extends WaxModel{
     $this->define("sync_location", "CharField", array('editable'=>false));
     $this->define("migration_id", "IntegerField", array('editable'=>false));
     //new field for tagging them on upload
-    $this->define("tag", "CharField");
+    $this->define("event_timestamp", "CharField");
+    $this->define("event_name", "CharField");
 
     $this->define("pre_rendered", "BooleanField", array('editable'=>false));
     parent::setup();
@@ -100,6 +101,12 @@ class WildfireMedia extends WaxModel{
     elseif($tag=="all") return $model->filter($col, $primval)->order('join_order ASC')->all();
     elseif($tag) return $model->filter($col, $primval)->filter("tag", $tag)->order('join_order ASC')->all();
     else return false;
+  }
+  
+  public function name_event($timestamp, $name) {
+    $media = new WildfireMedia;
+    $items = $media->filter("event_timestamp",$timestamp)->all();
+    foreach($items as $item) $item->update_attributes(array("event_name"=>$name));
   }
   
   public function upload($stream, $options = array()) {
