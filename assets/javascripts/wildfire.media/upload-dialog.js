@@ -21,10 +21,10 @@ $(document).ready(function() {
       function(){
        $(".collection-name").hide();
        $("#main-upload-dialog .file-collection-name").text($("#main-upload-dialog .category_tagging").val());
-       $("#main-upload-dialog .finish-button").show().click(function(){
+       $("#main-upload-dialog .finish-button").show().unbind("click").click(function(){
          $(".collection-name .collection-save").click();
-         $("#main-upload-dialog").dialog("close");
          dialog_reset();
+         $("#main-upload-dialog").dialog("close");
        });
       }
     );
