@@ -70,7 +70,12 @@ class CMSAdminMediaController extends AdminComponent{
     WaxEvent::run("cms.sync.location", $this);
     WaxEvent::run("cms.sync.run", $this);
   }
+  
+  public function filter() {
+    $this->use_layout = false;
+    $this->use_view = "_list";
+    
+  }
 
 
 }
-?>

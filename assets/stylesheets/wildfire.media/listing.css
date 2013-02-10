@@ -11,10 +11,10 @@
 
 .media-filter-block {
   background:#f5f5f5;
-  padding:30px 15px;
+  padding:20px 15px 5px 15px;
   border-top:1px solid #dfdfdf;
   border-bottom:1px solid #dfdfdf;
-  
+  overflow:visible;
 }
 .media-filter-block a {
   text-decoration:none;
@@ -48,6 +48,36 @@
 
 .media-filter-block .collection-filter {
   float:left;
+  margin-right:20px;
+  margin-top:8px;
+}
+.media-filter-block .view-switch {
+  float:left;
+  margin-top:5px;
+}
+.media-filter-block .view-switch a.selected b {
+  color:#136EA2;
+}
+
+
+.media-filter-block .collection-filter a.btn {
+  background:white;
+  border: 1px solid #B9BCBE;
+  border-radius: 4px 4px 4px 4px;
+  box-shadow: 0 0 6px 4px rgba(226, 234, 238, 0.8), 0 0 2px 2px #E7E7E7 inset;
+  color: #c1c5c8;
+  outline: medium none;
+  padding:7px 12px;
+}
+.media-filter-block .collection-filter .open .btn {
+  box-shadow:0 0 6px 4px #E0F1FC, 0 0 2px 2px #E7E7E7 inset;
+  background:white;
+  border: 1px solid #7DC6DD;
+}
+
+.media-filter-block .divider {
+  width:100%;
+  clear:both;
 }
 
 
