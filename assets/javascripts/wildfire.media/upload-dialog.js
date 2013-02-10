@@ -64,5 +64,8 @@ function get_overall_progress() {
   percent = Math.round((loaded / total)*100);
   $("#main-upload-dialog .progress .bar").css("width",percent+"%");
   $("#main-upload-dialog .progress-total").text(percent+"%");
-  if(percent == 100) $("#main-upload-dialog .progress").removeClass("active").addClass("progress-success");
+  if(percent == 100) {
+    $("#main-upload-dialog .progress").removeClass("active").addClass("progress-success");
+    $(window).trigger("file.upload.complete");
+  }
 }

@@ -1,0 +1,33 @@
+#cms-media #page_content {
+  padding:0;
+}
+.media-header {
+  padding:23px 20px 20px 20px;
+}
+.media-header h3 {
+  color:#136ea2;
+  font-weight:300;
+}
+
+.media-filter-block {
+  background:#f5f5f5;
+  padding:30px 15px;
+  border-top:1px solid #dfdfdf;
+  border-bottom:1px solid #dfdfdf;
+  
+}
+
+.media-listing-container {
+  padding-left:20px;
+  padding-top:20px;
+}
+.media-listing-container .media-listing-item {
+  width:172px;
+  height:162px;
+  overflow:hidden;
+  float:left;
+  margin:0 20px 20px 0;
+}
+.media-listing-container .media-listing-item img {
+  height:162px;
+}
