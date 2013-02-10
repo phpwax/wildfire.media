@@ -1,3 +1,22 @@
 <div class="media-filter-block">
+  <form>
+    <div class="search-filter">
+      <input type="text" class="input_field text_field" value="" name="filters[text]" placeholder="Search media by file or collection name">
+      <b class='icon-search'></b>
+    </div> 
+    <div class="collection-filter">
+      <select name="filters[collections]">
+        <option value="">Show All</option>
+        <?foreach(WildfireMedia::get_collections() as $collection):?>
+          <?if($collection->event_name):?>
+            <option value="<?=$collection->event_name?>"><?=$collection->event_name?></option>
+          <?endif?>
+        <?endforeach?>
+      </select>
+    </div>
+    <div class="view-switch">
+      <a href="#" class="date-view-switch"><b class="icon-time" title="Switch To Date View"></b></a>
+    </div>
+  </form>
   
 </div>

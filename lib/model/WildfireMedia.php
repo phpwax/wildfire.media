@@ -135,6 +135,11 @@ class WildfireMedia extends WaxModel{
     return "WildfireDiskFile";
   }
   
+  public function get_collections() {
+    $media = new WildfireMedia;
+    return $media->group("event_name")->all();
+  }
+  
 
 
 }
