@@ -8,7 +8,7 @@ class CMSAdminMediaController extends AdminComponent{
   public $model_class="WildfireMedia";
   public $model_scope = "admin";
   public $display_name = "Media";
-
+  public $singular = "Item";
   public $sync_partial = "_media_class_list";
   public $sync_class = false;
   public $sync_locations = array();
