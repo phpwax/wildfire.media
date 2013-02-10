@@ -2,7 +2,7 @@
 class CMSAdminMediaController extends AdminComponent{
   public $uploads = true;
   public $dashboard = false;
-  public $per_page = 40;
+  public $per_page = 1000000;
   public $preview_hover = true;
   public $module_name = "media";
   public $model_class="WildfireMedia";
@@ -74,7 +74,12 @@ class CMSAdminMediaController extends AdminComponent{
   public function filter() {
     $this->use_layout = false;
     $this->use_view = "_list";
+    $model = new $this->model_class("live");
     
+    if(get("page")) $page = get("page");
+    else $page =1;    
+    $this->cms_content = $model->page($page, 18);
+    $this->overall_total = $this->cms_content->total_without_limits();
   }
 
 
