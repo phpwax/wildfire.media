@@ -5,6 +5,7 @@ var wildfire_media = {
   
   
   init: function() {
+    if(!$(".media-listing-wrapper").length) return;
     this.setupUI();
     this.bindEvents();
     this.load();
@@ -91,6 +92,15 @@ var wildfire_media = {
   
   bindMediaEvents: function() {
     return true;
+    this.calculateImageRatios();
+  },
+  
+  calculateImageRatios: function() {
+    $(".media-listing-item img").each(function(){
+      var width = $(this).width();
+      var height = $(this).height();
+      $(this).addClass("ratio_"+Math.floor(width/height) );
+    });
   },
   
   infiniteScroll: function() {
