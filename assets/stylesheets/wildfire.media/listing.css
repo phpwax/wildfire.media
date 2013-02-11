@@ -96,10 +96,11 @@
   overflow:hidden;
   float:left;
   margin:0 20px 20px 0;
-  background:#f0f0f0;
+  border:1px solid #f0f0f0;
   text-align:center;
 }
 .media-listing-container .media-listing-item img {
-  height:162px;
   position:relative;
+  min-width:100%;
+
 }
