@@ -65,7 +65,22 @@ var wildfire_media = {
       if ($(window).scrollTop() + $(window).height() >= $(document).height()) {                     
         controller.infiniteScroll();
       }
-    })
+    });
+    
+    $(".media-filter-block .search-submit").click(function(){
+      controller.page = 1;
+      controller.load();
+    });
+    
+    $(".media-filter-block .collection-filter .dropdown-menu a").click(function(){
+      controller.page = 1;
+      controller.load();
+    });
+    
+    $(".media-filter-block .view-switch a").click(function(){
+      controller.page = 1;
+      controller.load();
+    });
     
   },
   

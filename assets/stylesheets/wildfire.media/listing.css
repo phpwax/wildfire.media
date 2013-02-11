@@ -30,12 +30,17 @@
 
 .media-filter-block .search-filter {
   float:left;
-  width:25%;
+  width:30%;
   margin-right:30px;
 }
 .media-filter-block .search-filter .input_field {
-  width:100%;
+  width:80%;
   padding-left:25px;
+}
+.media-filter-block .search-filter .search-submit {
+  float:right;
+  display:block;
+  margin-top:4px;
 }
 
 .media-filter-block .search-filter .icon-search {

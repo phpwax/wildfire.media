@@ -77,7 +77,12 @@ class CMSAdminMediaController extends AdminComponent{
     $model = new $this->model_class("live");
     
     if(get("page")) $page = get("page");
-    else $page =1;    
+    else $page =1;
+    
+    if(get("collection") && get("collection")!="Show All") $model->filter("event_name",get("collection"));
+    if(get("filter")) $model->filter("title","%".get("filter")."%","LIKE");
+    
+    
     $this->cms_content = $model->page($page, 18);
     $this->overall_total = $this->cms_content->total_without_limits();
   }
