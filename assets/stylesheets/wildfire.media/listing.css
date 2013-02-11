@@ -7,6 +7,9 @@
 .media-header h3 {
   color:#136ea2;
   font-weight:300;
+  border:0;
+  padding:0;
+  margin:0;
 }
 
 .media-filter-block {
@@ -102,5 +105,17 @@
 .media-listing-container .media-listing-item img {
   position:relative;
   min-width:100%;
+  min-height:100%;
+}
 
+
+.media-listing-container .media-listing-item img.ratio_l_high {
+  min-height:0;
+}
+.media-listing-container .media-listing-item img.ratio_p_high {
+  min-width:0;
+}
+
+.media-listing-container .media-listing-item img.ratio_l_high {
+  top:30%;
 }

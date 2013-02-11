@@ -91,7 +91,6 @@ var wildfire_media = {
   },
   
   bindMediaEvents: function() {
-    return true;
     this.calculateImageRatios();
   },
   
@@ -99,7 +98,14 @@ var wildfire_media = {
     $(".media-listing-item img").each(function(){
       var width = $(this).width();
       var height = $(this).height();
-      $(this).addClass("ratio_"+Math.floor(width/height) );
+      var ratio = width/height;
+      console.log(ratio);
+      if(ratio<0.5) $(this).addClass("ratio_p_high");
+      else if(ratio<0.7) $(this).addClass("ratio_p_med");
+      else if(ratio<1) $(this).addClass("ratio_p");
+      else if(ratio<2) $(this).addClass("ratio_l");
+      else if(ratio<4) $(this).addClass("ratio_l_med");
+      else $(this).addClass("ratio_l_high");
     });
   },
   
