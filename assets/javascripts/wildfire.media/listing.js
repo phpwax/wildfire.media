@@ -59,7 +59,7 @@ var wildfire_media = {
     });
     $('.media-filter-block .view-switch a').click(function(){
       $(this).toggleClass("selected");
-      $(this).data('model', $(this).data('mode') == 'time' ? 'standard' : 'time');
+      $(this).data('mode', $(this).data('mode') == 'time' ? 'standard' : 'time');
     });
     
     $(window).scroll(function () {
@@ -99,7 +99,6 @@ var wildfire_media = {
       var width = $(this).width();
       var height = $(this).height();
       var ratio = width/height;
-      console.log(ratio);
       if(ratio<0.5) $(this).addClass("ratio_p_high");
       else if(ratio<0.7) $(this).addClass("ratio_p_med");
       else if(ratio<1) $(this).addClass("ratio_p");

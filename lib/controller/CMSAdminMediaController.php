@@ -79,6 +79,8 @@ class CMSAdminMediaController extends AdminComponent{
     if(get("page")) $page = get("page");
     else $page =1;
     
+    if(get("mode")== "standard") $this->mode = "standard";
+    
     if(get("collection") && get("collection")!="Show All") $model->filter("event_name",get("collection"));
     if(get("filter")) $model->filter("title","%".get("filter")."%","LIKE");
     
