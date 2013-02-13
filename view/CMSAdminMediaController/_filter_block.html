@@ -2,13 +2,13 @@
   <form>
     <div class="search-filter">
       <a class="button search-submit" href="#">Search</a>
-      <input type="text" class="input_field text_field" value="" name="filters[text]" placeholder="Search media by file or collection name">
+      <input type="text" class="input_field text_field" name="filters[text]" placeholder="Search media by file or collection name" value="<?=$search_filter?>">
       <b class='icon-search'></b>
     </div> 
     <div class="collection-filter">
       <div class="btn-group">
         <a class="btn dropdown-toggle" data-toggle="dropdown" href="#" role="button">
-          <span class='collection' data-value="Show All">Choose Collection</span> <span class="caret"></span>
+          <span class='collection' data-value="<?=$collection_value?>">Choose Collection</span> <span class="caret"></span>
         </a>
         <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
           <li><a href="#" data-value="all">Show All</a></li>
@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="view-switch">
-      <a href="#" class="date-view-switch" data-mode='standard'><b class="icon-time" title="Switch To Date View"></b></a>
+      <a href="#" class="date-view-switch" data-mode='<?=$mode?>'><b class="icon-time" title="Switch To Date View"></b></a>
     </div>
     <div class="divider"></div>
   </form>

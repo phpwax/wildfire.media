@@ -8,6 +8,7 @@ var wildfire_media = {
     if(!$(".media-listing-wrapper").length) return;
     this.setupUI();
     this.bindEvents();
+    this.restoreState();
     this.load();
   },
   
@@ -37,6 +38,7 @@ var wildfire_media = {
       }
     });
   },
+
   
   loadAppend: function() {
     this.append = true;
@@ -50,6 +52,26 @@ var wildfire_media = {
     return {"filter":filter, "collection":collection, "mode":mode, page:this.page};
   },
   
+  encodeState: function() {
+    var ret = [];
+    var data =  this.getParams();
+    for (var d in data) {
+      ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
+    }
+    history.pushState(data, "", "/admin/media/?"+ret.join("&"));
+  },
+  
+  restoreState: function() {
+    data = this.getParams();
+    console.log(data);
+    if(data.mode == "time") $('.media-filter-block .view-switch a').toggleClass("selected");
+    if(data.filter.length > 1 ) $(".media-filter-block .search-filter input").val(data.filter);
+    if(data.collection) {
+      $(".dropdown-toggle .collection").data("value", data.collection);
+      $(".dropdown-toggle .collection").text(data.collection);
+    }
+  },
+  
   bindEvents: function() {
     var controller = this;
     $('.media-filter-block .dropdown-menu a').click(function(){
@@ -57,9 +79,11 @@ var wildfire_media = {
       toggler.data("value", $(this).text());
       toggler.text($(this).text());
     });
-    $('.media-filter-block .view-switch a').click(function(){
+    $('.media-filter-block .view-switch a').click(function(e){
       $(this).toggleClass("selected");
       $(this).data('mode', $(this).data('mode') == 'time' ? 'standard' : 'time');
+      controller.encodeState();
+      e.preventDefault();
     });
     
     $(window).scroll(function () {
@@ -68,19 +92,25 @@ var wildfire_media = {
       }
     });
     
-    $(".media-filter-block .search-submit").click(function(){
+    $(".media-filter-block .search-submit").click(function(e){
       controller.page = 1;
+      controller.encodeState();
+      controller.load();
+      e.preventDefault();
+    });
+    
+    $(".media-filter-block .collection-filter .dropdown-menu a").click(function(e){
+      controller.page = 1;
+      controller.encodeState();
+      e.preventDefault();
       controller.load();
     });
     
-    $(".media-filter-block .collection-filter .dropdown-menu a").click(function(){
+    $(".media-filter-block .view-switch a").click(function(e){
       controller.page = 1;
+      controller.encodeState();
       controller.load();
-    });
-    
-    $(".media-filter-block .view-switch a").click(function(){
-      controller.page = 1;
-      controller.load();
+      e.preventDefault();
     });
     
   },
@@ -92,6 +122,10 @@ var wildfire_media = {
   
   bindMediaEvents: function() {
     this.calculateImageRatios();
+    $(".media-listing-item").hoverIntent(
+      function(){$(this).toggleClass("hovered");},
+      function(){$(this).toggleClass("hovered");}
+    );
   },
   
   calculateImageRatios: function() {

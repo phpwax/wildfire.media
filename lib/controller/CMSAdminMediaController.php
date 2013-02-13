@@ -72,21 +72,47 @@ class CMSAdminMediaController extends AdminComponent{
   }
   
   public function filter() {
+    WaxEvent::run("cms.index.setup", $this);
     $this->use_layout = false;
     $this->use_view = "_list";
-    $model = new $this->model_class("live");
+    $this->model = new $this->model_class("live");
     
     if(get("page")) $page = get("page");
     else $page =1;
-    
-    if(get("mode")== "standard") $this->mode = "standard";
-    
-    if(get("collection") && get("collection")!="Show All") $model->filter("event_name",get("collection"));
-    if(get("filter")) $model->filter("title","%".get("filter")."%","LIKE");
+    $this->detect_mode();
     
     
-    $this->cms_content = $model->page($page, 18);
+    if(get("collection",true) && get("collection")!="Show All") $this->model->filter("event_name",get("collection"));
+    if(get("filter",true)) $this->model->filter("title","%".get("filter")."%","LIKE");
+    
+    
+    $this->cms_content = $this->model->page($page, 18);
     $this->overall_total = $this->cms_content->total_without_limits();
+  }
+  
+  
+  public function _filter_block() {
+    $this->detect_mode();
+    $this->detect_filters();
+    $this->detect_collection();
+  }
+  
+  protected function detect_filters() {
+    if(get("filter",true)) $this->search_filter = get("filter",true);
+  }
+  
+  protected function detect_collection() {
+    if(get("collection",true) && get("collection")!="Show All") $this->collection_value = get("collection",true);
+  }
+
+  
+  protected function detect_mode() {
+    if(get("mode")== "standard") $this->mode = "standard";
+    if(get("mode")== "time") {
+      $this->mode = "time";
+      $this->model->select_columns = "*, MONTHNAME(date_created) as month, YEAR(`date_created`) as year";
+      $this->model->order("date_created DESC");
+    }
   }
 
 
