@@ -71,10 +71,11 @@ class CMSAdminMediaController extends AdminComponent{
     WaxEvent::run("cms.sync.run", $this);
   }
   
-  public function _list() {
-    if($this->use_format == "ajax") {
-      $this->redirect_to("/admin/media/filter");
-    }
+  
+  public function embedded() {
+    $this->use_layout=false;
+    WaxEvent::run("cms.index.setup", $this);
+    $this->view_mode = "embedded";
   }
   
   public function filter() {
