@@ -5,6 +5,7 @@ $(document).ready(function() {
     $.get(url, function(response){
       base.append(response);
       wildfire_media.init();
+      $('.media-type-selector').selectpicker();
     });
     
   }

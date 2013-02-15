@@ -1,0 +1,73 @@
+fieldset#content_tab_media {
+  padding-right:420px;
+}
+.embedded-media-listing {
+  float:left;
+  position:relative;
+  width:auto;
+}
+.embedded-media-attachements {
+  position:relative;
+  background:white;
+  float:left;
+  width:400px;
+  margin-right:-400px;
+  box-shadow:0 0 5px rgba(0, 0, 0, 0.3);
+}
+.embedded-media-attachements .media-header {
+  border-bottom:1px solid #DFDFDF;
+}
+
+.embedded-media-attachements .existing-files {
+  padding:20px;
+}
+.embedded-media-attachements .joined-file {
+  border-bottom:1px solid #DFDFDF;
+  margin-bottom:5px;
+}
+
+.embedded-media-attachements .joined-media-info {
+  float:right;
+}
+.embedded-media-attachements .media-listing-item {
+  width:160px;
+  margin-right:5px;
+}
+.embedded-media-attachements .tag_options {
+  float:right;
+  margin-top:-6px;
+}
+.embedded-media-attachements .tag_options .remove-button {
+  width:17px;
+  visibility:hidden;
+}
+.embedded-media-attachements .tag_options .remove-button:before {
+  visibility:visible;
+  border-radius:2px;
+  background:#858585;
+  content:"❌";
+  width:20px;
+  height:20px;
+  display:block;
+  color:#FFF;
+  text-align:center;
+  font-family:"Entypo";
+  font-size:40px;
+  font-weight:100;
+  vertical-align:middle;
+  line-height:20px;
+}
+.embedded-media-attachements button.btn {
+  margin:5px 0;
+}
+.embedded-media-attachements .media-type-selector,
+.embedded-media-attachements .media-type-selector .btn {
+  width:180px;
+}
+.embedded-media-attachements .media-type-selector a {
+  text-decoration:none;
+  text-transform:capitalize;
+}
+.embedded-media-attachements .media-type-selector .dropdown-toggle {
+  text-transform:capitalize;  
+}
