@@ -47,7 +47,7 @@ var wildfire_media = {
   
   getParams: function() {
     var filter = $(".media-filter-block .search-filter input").val();
-    var collection = $(".media-filter-block .collection-filter .dropdown-toggle .collection").data("value");
+    var collection = $(".media-filter-block #collection_filter").select2("val");
     var mode = $('.media-filter-block .view-switch a').data("mode");
     return {"filter":filter, "collection":collection, "mode":mode, page:this.page};
   },
@@ -62,14 +62,20 @@ var wildfire_media = {
   },
   
   restoreState: function() {
-    data = this.getParams();
-    console.log(data);
-    if(data.mode == "time") $('.media-filter-block .view-switch a').toggleClass("selected");
+    var data = this.getParams();
+    if(data.mode == "time") this.enableTimeMode();
     if(data.filter.length > 1 ) $(".media-filter-block .search-filter input").val(data.filter);
     if(data.collection) {
-      $(".dropdown-toggle .collection").data("value", data.collection);
-      $(".dropdown-toggle .collection").text(data.collection);
+      $(".media-filter-block #collection_filter").select2("val",data.collection);
     }
+  },
+  
+  enableTimeMode: function() {
+    $('.media-filter-block .view-switch a').toggleClass("selected");
+  },
+  
+  disableTimeMode: function() {
+    $('.media-filter-block .view-switch a').toggleClass("selected");
   },
   
   bindEvents: function() {
@@ -99,7 +105,7 @@ var wildfire_media = {
       e.preventDefault();
     });
     
-    $(".media-filter-block .collection-filter .dropdown-menu a").click(function(e){
+    $(".media-filter-block .collection-filter #collection_filter").change(function(e){
       controller.page = 1;
       controller.encodeState();
       e.preventDefault();
@@ -118,6 +124,7 @@ var wildfire_media = {
   setupUI: function() {
     $(".media-filter-block b").tooltip();
     $('.media-filter-block .dropdown-toggle').dropdown();
+    $(".collection-dropdown").select2({allowClear: true});
   },
   
   bindMediaEvents: function() {

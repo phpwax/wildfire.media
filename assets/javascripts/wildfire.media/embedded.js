@@ -5,7 +5,7 @@ $(document).ready(function() {
     $.get(url, function(response){
       base.append(response);
       wildfire_media.init();
-      $('.media-type-selector').selectpicker();
+      $('.media-type-selector').select2({allowClear:true});
     });
     
   }
@@ -13,5 +13,5 @@ $(document).ready(function() {
 
 
 function file_tree_refresh() {
-  
+
 }
