@@ -23,7 +23,9 @@ class WildfireMedia extends WaxModel{
 
 
     $this->define("media_type", "CharField", array('editable'=>false)); //friendly name of the media class - Local storage / youtube etc
-    $this->define("user", "ForeignKey", array('target_model'=>'WildfireUser', 'editable'=>false));
+    if(class_exists("WildfireUser", false)){
+      $this->define("user", "ForeignKey", array('target_model'=>'WildfireUser', 'editable'=>false));
+    }
 
     $this->define("categories", "ManyToManyField", array('target_model'=>"WildfireCategory","eager_loading"=>true, "join_model_class"=>"WaxModelOrderedJoin", "join_order"=>"join_order", 'scaffold'=>true, 'group'=>'relationships', 'info_preview'=>1));
 
@@ -102,21 +104,21 @@ class WildfireMedia extends WaxModel{
     elseif($tag) return $model->filter($col, $primval)->filter("tag", $tag)->order('join_order ASC')->all();
     else return false;
   }
-  
+
   public function name_event($timestamp, $name) {
     $media = new WildfireMedia;
     $items = $media->filter("event_timestamp",$timestamp)->all();
     foreach($items as $item) $item->update_attributes(array("event_name"=>$name));
   }
-  
+
   public function upload($stream, $options = array()) {
     $handler_class = $this->get_handler($stream);
     $handler = new $handler_class;
     $meta = $handler->upload($stream, $options);
-    
+
     // Upload failed, return false now
     if(!$meta) return false;
-    
+
     // Continue and create the new media object
     $meta = array_merge($options, $meta);
     $object = new WildfireMedia();
@@ -124,8 +126,8 @@ class WildfireMedia extends WaxModel{
     return $object;
   }
 
- 
-  
+
+
   public function get_handler($filename) {
     $ext = (substr(strrchr($filename,'.'),1));
     $check = strtolower($ext);
@@ -134,12 +136,12 @@ class WildfireMedia extends WaxModel{
     if($setup[$check]) return $setup[$check];
     return "WildfireDiskFile";
   }
-  
+
   public function get_collections() {
     $media = new WildfireMedia;
     return $media->group("event_name")->all();
   }
-  
+
 
 
 }
