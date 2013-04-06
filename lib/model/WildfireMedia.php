@@ -26,9 +26,9 @@ class WildfireMedia extends WaxModel{
     if(class_exists("WildfireUser", false)){
       $this->define("user", "ForeignKey", array('target_model'=>'WildfireUser', 'editable'=>false));
     }
-
-    $this->define("categories", "ManyToManyField", array('target_model'=>"WildfireCategory","eager_loading"=>true, "join_model_class"=>"WaxModelOrderedJoin", "join_order"=>"join_order", 'scaffold'=>true, 'group'=>'relationships', 'info_preview'=>1));
-
+    if(class_exists("WildfireCategory", false)){
+      $this->define("categories", "ManyToManyField", array('target_model'=>"WildfireCategory","eager_loading"=>true, "join_model_class"=>"WaxModelOrderedJoin", "join_order"=>"join_order", 'scaffold'=>true, 'group'=>'relationships', 'info_preview'=>1));
+    }
     $this->define("date_created", "DateTimeField", array('editable'=>false));
     $this->define("date_modified", "DateTimeField", array('editable'=>false));
     $this->define("sync_location", "CharField", array('editable'=>false));
