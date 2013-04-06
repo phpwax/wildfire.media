@@ -2,7 +2,7 @@
 class CMSAdminMediaController extends AdminComponent{
   public $uploads = true;
   public $dashboard = false;
-  public $per_page = 40;
+  public $per_page = 1000000;
   public $preview_hover = true;
   public $module_name = "media";
   public $model_class="WildfireMedia";
@@ -70,7 +70,57 @@ class CMSAdminMediaController extends AdminComponent{
     WaxEvent::run("cms.sync.location", $this);
     WaxEvent::run("cms.sync.run", $this);
   }
+  
+  
+  public function embedded() {
+    $this->use_layout=false;
+    WaxEvent::run("cms.index.setup", $this);
+    $this->view_mode = "embedded";
+  }
+  
+  public function filter() {
+    WaxEvent::run("cms.index.setup", $this);
+    $this->use_layout = false;
+    $this->use_view = "_list";
+    $this->model = new $this->model_class("live");
+    
+    if(get("page")) $page = get("page");
+    else $page =1;
+    $this->detect_mode();
+    
+    
+    if(get("collection",true) && get("collection")!="Show All") $this->model->filter("event_name",get("collection"));
+    if(get("filter",true)) $this->model->filter("title","%".get("filter")."%","LIKE");
+    
+    
+    $this->cms_content = $this->model->page($page, 18);
+    $this->overall_total = $this->cms_content->total_without_limits();
+  }
+  
+  
+  public function _filter_block() {
+    $this->detect_mode();
+    $this->detect_filters();
+    $this->detect_collection();
+  }
+  
+  protected function detect_filters() {
+    if(get("filter",true)) $this->search_filter = get("filter",true);
+  }
+  
+  protected function detect_collection() {
+    if(get("collection",true) && get("collection")!="Show All") $this->collection_value = get("collection",true);
+  }
+
+  
+  protected function detect_mode() {
+    if(get("mode")== "standard") $this->mode = "standard";
+    if(get("mode")== "time") {
+      $this->mode = "time";
+      $this->model->select_columns = "*, MONTHNAME(date_created) as month, YEAR(`date_created`) as year";
+      $this->model->order("date_created DESC");
+    }
+  }
 
 
 }
-?>

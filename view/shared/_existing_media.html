@@ -1,17 +1,20 @@
 <div class='joined-file clearfix f_<?=$field?>_<?=$media->primval?> <?=$media->groups()?>' data-primval="<?=$media->primval?>">
-  <div class="image_wrap">
-    
-    <?=$media->render(200)?>
+  <div class="media-listing-item">
+    <div class="media-operations">
+      <?=partial("_operations", array("current_user"=>$current_user,"permissions"=>$permissions, "controller"=>$controller, "action"=>$action, "row"=>$media, 'operation_actions'=>$operation_actions))?>
+    </div>
+    <?=$media->render(172)?>
   </div>
   
-  <p><a href="<?=$media->permalink(false)?>"><?=$media->title?></a></p>
-
-  <input type="hidden" name="joins[<?=$field?>][<?=$media->primval?>][id]" value="<?=$media->primval?>" id="join_file_<?=$media->primval?>" class="hidden joined_field" checked="checked">
-  
-  <div class='tag_options clearfix t_<?=$media->tag?> o_<?=$media->join_order?>'>
-    <?=partial($extra_fields_view?$extra_fields_view:"_media_extra_fields", array("field"=>$field, "media"=>$media))?>
+  <div class="joined-media-info">
     <div class='tag_options clearfix'>
       <a href='#' data-primval='<?=$media->primval?>' class='button js-added remove-button'>REMOVE</a>
+    </div>
+    <h4><?=$media->title?></h4>
+
+    <input type="hidden" name="joins[<?=$field?>][<?=$media->primval?>][id]" value="<?=$media->primval?>" id="join_file_<?=$media->primval?>" class="hidden joined_field" checked="checked">
+    <div class='tag_options clearfix t_<?=$media->tag?> o_<?=$media->join_order?>'>
+      <?=partial($extra_fields_view?$extra_fields_view:"_media_extra_fields", array("field"=>$field, "media"=>$media))?>
     </div>
   </div>
 </div>

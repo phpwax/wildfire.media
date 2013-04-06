@@ -143,5 +143,4 @@ class WildfireMedia extends WaxModel{
   }
 
 
-
 }

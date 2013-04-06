@@ -1,0 +1,8 @@
+b.icon-time:before {
+  content: "🕔";
+  line-height:10px;
+  font-size:40px;
+}
+b.icon-search:before{
+  content:"🔍";
+}

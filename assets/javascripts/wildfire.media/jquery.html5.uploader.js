@@ -109,7 +109,7 @@ jQuery(document).ready(function($){
 		drop_area.bind("dragleave", function(e){
 			e.preventDefault();
 			e.stopPropagation();
-			jQuery(this).addClass("fu-dragleave").removeClass("fu-dragover fu-dragenter");
+      if(event.pageX=="0") jQuery(this).addClass("fu-dragleave").removeClass("fu-dragover fu-dragenter");
 		}).bind("dragenter", function(e){
 			e.preventDefault();
 			e.stopPropagation();
