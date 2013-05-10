@@ -150,9 +150,12 @@ var wildfire_media = {
   },
   
   infiniteScroll: function() {
-    var current = $(".media-listing-container .page-marker:last").data("last-load");
-    this.page = current+1;
-    this.loadAppend();
+    var last_page_marker = $(".media-listing-container .page-marker:last");
+        current = last_page_marker.data("current-page");
+    if(current < last_page_marker.data("total-pages")){
+      this.page = current + 1;
+      this.loadAppend();
+    }
   }
   
   
