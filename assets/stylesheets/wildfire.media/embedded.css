@@ -1,18 +1,10 @@
 fieldset#content_tab_media {
-  padding-right:420px;
   font-size:12px;
 }
 .embedded-media-listing {
-  float:left;
-  position:relative;
-  width:auto;
 }
 .embedded-media-attachements {
-  position:relative;
   background:white;
-  float:left;
-  width:400px;
-  margin-right:-400px;
   box-shadow:0 0 5px rgba(0, 0, 0, 0.3);
 }
 .embedded-media-attachements .media-header {

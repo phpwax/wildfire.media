@@ -1,6 +1,8 @@
-<div class='embedded-media-listing edit_fields' data-field="<?=$field?>" data-new-join-url="/<?=$controller?>/_existing_media" data-action="/admin/media/embedded">
+<div class="edit_fields">
+  <div class='embedded-media-listing raised' data-field="<?=$field?>" data-new-join-url="/<?=$controller?>/_existing_media" data-action="/admin/media/embedded">
 
+  </div>
 </div>
-<div class="embedded-media-attachements">
+<div class="meta_tabs embedded-media-attachements">
   <?=partial($field_data->existing_media_list?$field_data->existing_media_list:"_existing_media_list", array("field"=>$field?:"media", "field_data"=>$field_data, "file_tags"=>$file_tags, "media"=>$media, "model"=>$model))?>
 </div>
