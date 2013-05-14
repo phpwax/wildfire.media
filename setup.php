@@ -7,7 +7,7 @@ CMSApplication::register_asset("wildfire", "css", "wildfire.media");
 if(defined("CONTENT_MODEL")){
   WaxEvent::add(CONTENT_MODEL.".setup", function(){
     $model = WaxEvent::data();
-    if(!$model->columns['media']) $model->define("media", "ManyToManyField", array('target_model'=>'WildfireMedia', 'group'=>'media'));
+    if(!$model->columns['media']) $model->define("media", "ManyToManyField", array('target_model'=>'WildfireMedia', 'group'=>'media', 'eager_loading'=>true, 'join_model_class'=>'WildfireOrderedTagJoin', 'join_order'=>'join_order'));
   });
 }
 
