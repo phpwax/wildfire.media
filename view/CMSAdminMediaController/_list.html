@@ -17,5 +17,5 @@
     <?endif?>
     <?if($mode == "time"):?><?$current = $media->month?><?endif?>
   <?endforeach?>
-  <div class="page-marker" data-last-load="<?=$cms_content->current_page?>">
+  <div class="page-marker" data-current-page="<?=$cms_content->current_page?>" data-total-pages="<?=$cms_content->total_pages?>">
 </div>
