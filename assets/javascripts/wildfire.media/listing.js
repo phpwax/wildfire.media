@@ -124,7 +124,7 @@ var wildfire_media = {
   setupUI: function() {
     $(".media-filter-block b").tooltip();
     $('.media-filter-block .dropdown-toggle').dropdown();
-    $(".collection-dropdown").select2({allowClear: true});
+    $("select.collection-dropdown").select2({allowClear: true});
   },
   
   bindMediaEvents: function() {
