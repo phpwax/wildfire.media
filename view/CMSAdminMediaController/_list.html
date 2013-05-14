@@ -6,7 +6,7 @@
       <?$current = $media->month?>
       <div class="date-marker"><h4><?=$media->month?> <?=$media->year?></h4></div>
     <?endif?>
-    <div class="media-listing-item">
+    <div class="media-listing-item" data-primval="<?=$media->primval()?>">
       <div class="media-operations">
         <?=partial("_operations", array("current_user"=>$current_user,"permissions"=>$permissions, "controller"=>$controller, "action"=>$action, "row"=>$media, 'operation_actions'=>$operation_actions))?>
       </div>

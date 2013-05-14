@@ -19,7 +19,7 @@ class CMSAdminMediaController extends AdminComponent{
                           'categories' => array('columns'=>array('categories'), 'partial'=>'_filters_select', 'opposite_join_column'=>'media')
                         );
 
-  public $operation_actions = array('edit', 'download');
+  public $operation_actions = array('edit', 'download', 'add');
   public function events(){
     WaxEvent::add("cms.model.columns", function(){
       $obj = WaxEvent::data();
