@@ -10,8 +10,3 @@ $(document).ready(function() {
     
   }
 });
-
-
-function file_tree_refresh() {
-
-}
