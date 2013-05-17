@@ -91,6 +91,10 @@ class CMSAdminMediaController extends AdminComponent{
     
     if(get("collection",true) && get("collection")!="Show All") $this->model->filter("event_name",get("collection"));
     if(get("filter",true)) $this->model->filter("title","%".get("filter")."%","LIKE");
+    if(($join_class = get("join_class")) && ($join_id = get("join_id")) && ($join_field = get("join_field"))){
+      $existing_media = new $join_class($join_id);
+      $this->existing_media = $existing_media->$join_field;
+    }
     
     
     $this->cms_content = $this->model->page($page, 18);
