@@ -15,7 +15,7 @@
     <?endif?>
     <div id="row_<?=$media->primval?>" class="media-listing-item <?if(in_array($media->primval,$joined_ids)) echo 'joined-to-model'?>" data-primval="<?=$media->primval()?>">
       <div class="media-operations">
-        <?=partial("_operations", array("current_user"=>$current_user, "controller"=>$controller, "action"=>$action, "row"=>$media, 'operation_actions'=>$operation_actions))?>
+        <?=partial("_operations", array("current_user"=>$current_user, "controller"=>$controller, "action"=>$action, "row"=>$media, 'operation_actions'=>array(), 'permissions'=>$operation_actions))?>
       </div>
       <?=$media->render(172)?>
     </div>
