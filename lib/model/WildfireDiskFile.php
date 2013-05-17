@@ -3,6 +3,7 @@ class WildfireDiskFile{
 
   public static $hash_length = 6;
   public static $name = "Local storage";
+  public $operations = array("download");
   /**
    * this should handle the saving of the media to the disc
    **/

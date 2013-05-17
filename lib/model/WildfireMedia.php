@@ -142,5 +142,18 @@ class WildfireMedia extends WaxModel{
     return $media->group("event_name")->all();
   }
 
+  public function get_operations($permissions,$join_ids){
+    $operations = $permissions;
+    
+    if($this->media_class){
+      $media = new $this->media_class;
+      if($media->operations) foreach($media->operations as $operation) $operations[$operation] = 1;
+    }
+    if($join_ids && count($join_ids) && in_array($this->primval,$join_ids)) $operations["remove"] = 1;
+    elseif($join_ids) $operations["add"] = 1;
+
+    return $operations;
+  }
+
 
 }
