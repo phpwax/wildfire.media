@@ -28,7 +28,7 @@ fieldset#content_tab_media {
 .embedded-media-attachements .joined-media-info h4 {
   font-size:107%;
   word-wrap: break-word;
-  margin-right: 18px;
+  margin: 0 18px 8px 0;
 }
 .embedded-media-attachements .media-listing-item {
   width: 50%;
