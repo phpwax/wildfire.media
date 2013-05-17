@@ -46,10 +46,16 @@ var wildfire_media = {
   },
   
   getParams: function() {
-    var filter = $(".media-filter-block .search-filter input").val();
-    var collection = $(".media-filter-block #collection_filter").select2("val");
-    var mode = $('.media-filter-block .view-switch a').data("mode");
-    return {"filter":filter, "collection":collection, "mode":mode, page:this.page};
+    var filter = $(".media-filter-block .search-filter input").val(),
+        collection = $(".media-filter-block #collection_filter").select2("val"),
+        mode = $('.media-filter-block .view-switch a').data("mode"),
+        data = {"filter":filter, "collection":collection, "mode":mode, page:this.page};
+    if((embed = $(".media-filter-block").parents(".embedded-media-listing")) && embed.length){
+      data.join_class = embed.attr("data-join-class");
+      data.join_id = embed.attr("data-join-id");
+      data.join_field = embed.attr("data-join-field");
+    }
+    return data;
   },
   
   encodeState: function() {
