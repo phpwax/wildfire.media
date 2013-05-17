@@ -30,19 +30,18 @@ var wildfire_media = {
           $(".media-listing-wrapper").append(response);
         } else $(".media-listing-wrapper").html(response);
         controller.bindMediaEvents();
-        controller.append = false;
+        controller.append = true;
+        $(window).bind("scroll.infiniteScroll",function(){
+          controller.infiniteScroll(controller);
+        });
      },
 
       error: function() {
-        //called when there is an error
+        $(window).bind("scroll.infiniteScroll",function(){
+          controller.infiniteScroll(controller);
+        });
       }
     });
-  },
-
-  
-  loadAppend: function() {
-    this.append = true;
-    this.load();
   },
   
   getParams: function() {
@@ -98,10 +97,8 @@ var wildfire_media = {
       e.preventDefault();
     });
     
-    $(window).scroll(function () {
-      if ($(window).scrollTop() + $(window).height() >= $(document).height()) {                     
-        controller.infiniteScroll();
-      }
+    $(window).bind("scroll.infiniteScroll",function(){
+      controller.infiniteScroll(controller);
     });
     
     $(".media-filter-block .search-submit").click(function(e){
@@ -155,15 +152,18 @@ var wildfire_media = {
     });
   },
   
-  infiniteScroll: function() {
-    var last_page_marker = $(".media-listing-container .page-marker:last");
-        current = last_page_marker.data("current-page");
-    if(current < last_page_marker.data("total-pages")){
-      this.page = current + 1;
-      this.loadAppend();
+  infiniteScroll: function(controller) {
+    if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+      $(window).unbind("scroll.infiniteScroll");
+      var last_page_marker = $(".media-listing-container .page-marker:last");
+          current = last_page_marker.data("current-page");
+
+      if(current < last_page_marker.data("total-pages")){
+        controller.page = current + 1;
+        controller.load();
+      }
     }
   }
-  
   
 };
 
