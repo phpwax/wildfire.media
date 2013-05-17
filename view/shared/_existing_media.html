@@ -1,7 +1,17 @@
-<div class='joined-file clearfix f_<?=$field?>_<?=$media->primval?> <?=$media->groups()?>' data-primval="<?=$media->primval?>">
-  <div class="media-listing-item">
+<div class='joined-file clearfix f_<?=$field?>_<?=$media->primval?> <?=$media->groups()?>'>
+  <div class="media-listing-item" data-primval="<?=$media->primval?>">
     <div class="media-operations">
-      <?=partial("_operations", array("current_user"=>$current_user,"permissions"=>$permissions, "controller"=>$controller, "action"=>$action, "row"=>$media, 'operation_actions'=>$operation_actions))?>
+      <?
+        $permissions = $current_user->permissions($operation_actions, $module_name);
+        if($existing_media && $existing_media->count()){
+          $joined_ids = array();
+          foreach($existing_media as $m) $joined_ids[] = $m->primval;
+        }elseif($existing_media) $joined_ids = true;
+
+        $operation_actions = $media->get_operations($permissions,$joined_ids);
+        $operation_actions["remove"] = 1;
+      ?>
+      <?=partial("_operations", array("current_user"=>$current_user, "controller"=>$controller, "action"=>$action, "row"=>$media, 'operation_actions'=>$operation_actions))?>
     </div>
     <?=$media->render(172)?>
   </div>

@@ -103,6 +103,18 @@ class CMSAdminMediaController extends AdminComponent{
     $this->detect_filters();
     $this->detect_collection();
   }
+
+  public function _existing_media(){
+    //if called directly setup the needed data
+    if($this->action == "_existing_media"){
+      $model_class = Request::param("join_class");
+      $this->use_layout = false;
+      $source = new $model_class;
+      $col_data = $source->get_col($this->field = Request::param("field"));
+      $this->media = new $col_data->target_model(Request::param("target_id"));
+      $this->extra_fields_view = $col_data->extra_fields_view;
+    }
+  }
   
   protected function detect_filters() {
     if(get("filter",true)) $this->search_filter = get("filter",true);
