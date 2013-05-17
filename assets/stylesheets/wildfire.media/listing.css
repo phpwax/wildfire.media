@@ -115,6 +115,9 @@
   text-align:center;
   position:relative;
 }
+  .media-listing-item.joined-to-model{
+    box-shadow:0 0 5px rgba(0,0,0,0.6);
+  }
 .media-listing-item img {
   position:relative;
   min-width:100%;
@@ -171,6 +174,9 @@
 }
 .media-operations .operation_add:before{
   content:"➕";
+}
+.media-operations .operation_remove:before{
+  content:"➖";
 }
 .media-operations .operation_download:before {
   content:"📥";
