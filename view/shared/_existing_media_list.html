@@ -3,9 +3,17 @@
 </div>
 <div class='existing-files clearfix' data-field="<?=$field?>">
   <input type="hidden" name="joins[<?=$field?>][0]" value="0" class='default_value_to_unset_join'>
-  <?$existing_media = $model->$field?>
+  <?
+    $existing_media = $model->$field;
+
+    if($existing_media && $existing_media->count()){
+      $joined_ids = array();
+      foreach($existing_media as $media) $joined_ids[] = $media->primval;
+    }elseif($existing_media) $joined_ids = true;
+
+  ?>
   <?foreach($existing_media as $i=>$media):?>
-    <?=partial("admin/media/_existing_media",array('media'=>$media, 'field'=>$field, 'existing_media'=>$existing_media, 'extra_fields_view'=>$field_data->extra_fields_view))?>
+    <?=partial("admin/media/_existing_media",array('media'=>$media, 'field'=>$field, 'joined_ids'=>$joined_ids, 'extra_fields_view'=>$field_data->extra_fields_view))?>
   <?endforeach?>
 
   <script type="text/javascript" charset="utf-8">
