@@ -5,9 +5,9 @@ class WildfireMedia extends WaxModel{
   public static $classes = array();
   public static $status_options = array('0'=>'pending', 1=>'processed');
   public function setup(){
-    $this->define("media_class", "CharField", array('group'=>'filepreview','widget'=>"HiddenInput"));
-    $this->define("title", "CharField", array('required'=>true, 'scaffold'=>true, 'group'=>"content", 'primary_group'=>1));
-    $this->define("content", "TextField", array('group'=>"content",'primary_group'=>1)); //description
+    $this->define("media_class", "CharField", array('group'=>'media preview','widget'=>"HiddenInput",'primary_group'=>1));
+    $this->define("title", "CharField", array('required'=>true, 'scaffold'=>true, 'group'=>"media preview", 'primary_group'=>1));
+    $this->define("content", "TextField", array()); //description
 
     $this->define("file_type", "CharField", array('scaffold'=>true, 'editable'=>false)); //thats the mime type
     $this->define("ext", "CharField", array('editable'=>false));
