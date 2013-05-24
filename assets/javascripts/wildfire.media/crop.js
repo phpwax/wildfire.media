@@ -1,6 +1,6 @@
 $(function(){
   var image = $(".media-preview .crop"),
-      ratio = image[0].naturalWidth / image[0].width,
+      ratio = !image[0] || image[0].naturalWidth / image[0].width,
       x1 = $("#wildfire_media_crop_x_1"),
       y1 = $("#wildfire_media_crop_y_1"),
       x2 = $("#wildfire_media_crop_x_2"),
