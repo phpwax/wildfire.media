@@ -6,6 +6,6 @@
     <?=$f->render()?>
     <?if($f->widget != "HiddenInput"):?></div><?endif?>
     <?endforeach?>
-    <?=$this->model->render()?>
+    <?=$this->model->render(false, false, "crop")?>
   </div>
 </div>

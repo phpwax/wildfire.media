@@ -38,6 +38,10 @@ class WildfireMedia extends WaxModel{
     $this->define("event_name", "CharField");
 
     $this->define("pre_rendered", "BooleanField", array('editable'=>false));
+    $this->define("crop_x_1", "IntegerField", array("widget"=>"HiddenInput", "group"=>"media preview", "primary_group"=>1));
+    $this->define("crop_y_1", "IntegerField", array("widget"=>"HiddenInput", "group"=>"media preview", "primary_group"=>1));
+    $this->define("crop_x_2", "IntegerField", array("widget"=>"HiddenInput", "group"=>"media preview", "primary_group"=>1));
+    $this->define("crop_y_2", "IntegerField", array("widget"=>"HiddenInput", "group"=>"media preview", "primary_group"=>1));
     parent::setup();
   }
 
