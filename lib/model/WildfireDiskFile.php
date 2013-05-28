@@ -36,14 +36,22 @@ class WildfireDiskFile{
     if(WildfireDiskFile::$hash_length) $hash = substr($media_item->hash, 0, WildfireDiskFile::$hash_length);
     else $hash = $media_item->hash;
 
+    $source = PUBLIC_DIR.$media_item->source;
     $dir = CACHE_DIR."images/".$hash."/";
     $apache_dir = PUBLIC_DIR."m/".$hash."/";
     $cache_file = $dir . $size .".".$media_item->ext;
     $apache_file = $apache_dir . $size .".".$media_item->ext;
     if(!is_readable($dir)) mkdir($dir, 0777, true);
     if(!is_readable($apache_dir)) mkdir($apache_dir, 0777, true);
-    if(!is_readable($apache_file)) File::smart_resize_image(PUBLIC_DIR.$media_item->source, $apache_file, $size, false, "nocrop");
-    if(!is_readable($cache_file)) File::smart_resize_image(PUBLIC_DIR.$media_item->source, $cache_file, $size, false, "nocrop");
+
+    if(is_numeric($media_item->crop_x_1) && is_numeric($media_item->crop_y_1) && is_numeric($media_item->crop_x_2) && is_numeric($media_item->crop_y_2)){
+      $cropped_file = "{$dir}pre_crop_{$media_item->crop_x_1}x{$media_item->crop_y_1}x{$media_item->crop_x_2}x{$media_item->crop_y_2}.$media_item->ext";
+      if(!is_readable($cropped_file)) File::crop_image($source, $cropped_file, $media_item->crop_x_1, $media_item->crop_y_1, $media_item->crop_x_2 - $media_item->crop_x_1, $media_item->crop_y_2 - $media_item->crop_y_1);
+      $source = $cropped_file;
+    }
+
+    if(!is_readable($apache_file)) File::smart_resize_image($source, $apache_file, $size, false, "nocrop");
+    if(!is_readable($cache_file)) File::smart_resize_image($source, $cache_file, $size, false, "nocrop");
 
     File::display_image($cache_file);
   }
