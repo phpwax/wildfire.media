@@ -68,6 +68,12 @@ class WildfireMedia extends WaxModel{
     if(!$this->title && $this->columns['title']) $this->title = "Media Item";
     if(!$this->date_created && $this->columns['date_created']) $this->date_created = date("Y-m-d H:i:s");
     if($this->columns['date_modified']) $this->date_modified = date("Y-m-d H:i:s");
+    $old = clone $this;
+    $old = $old->clear()->first();
+    if($old->crop_x_1 != $this->crop_x_1 || $old->crop_x_1 != $this->crop_x_1 || $old->crop_x_1 != $this->crop_x_1 || $old->crop_x_1 != $this->crop_x_1){
+      $obj = new $this->media_class;
+      $obj->clear_cache($this);
+    }
   }
 
   public function scope_files(){

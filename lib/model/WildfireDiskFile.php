@@ -17,14 +17,27 @@ class WildfireDiskFile{
     }
     return false;
   }
+
+  private function cache_dir(){return CACHE_DIR."images/";}
+  private function apache_cache_dir(){return PUBLIC_DIR."m/";}
+
+  private function hash($media_item){
+    if(WildfireDiskFile::$hash_length) return substr($media_item->hash, 0, WildfireDiskFile::$hash_length);
+    return $media_item->hash;
+  }
+
+  private function crop_ident($media_item){
+    foreach(array("crop_x_1", "crop_y_1", "crop_x_2", "crop_y_2") as $field) if(!is_numeric($ret[] = $media_item->$field)) return false;
+    return implode("x", $ret);
+  }
+
   //should return a url to display the image
   public function get($media_item, $size=false){
-    if(WildfireDiskFile::$hash_length) $hash = substr($media_item->hash, 0, WildfireDiskFile::$hash_length);
-    else $hash = $media_item->hash;
+    $hash = $this->hash($media_item);
     //if its not an image, return the normal url anyway
     if($size === false || !strstr($media_item->file_type, "image")) return "/".trim($media_item->source, "/");
     //we'll make a new controller called M (for media) which will simply map things smartly
-    else return "/m/".$hash."/".$size.".".$media_item->ext;
+    else return "/m/".$hash."/".$size.".".$media_item->ext."?".$this->crop_ident($media_item);
   }
 
   //this will actually render the contents of the image
@@ -33,19 +46,18 @@ class WildfireDiskFile{
     if(!strstr($media_item->file_type, "image") || $size == "full") return File::display_asset(PUBLIC_DIR.$media_item->source, $media_item->file_type);
     if(!$size) $size = 100; //default size
 
-    if(WildfireDiskFile::$hash_length) $hash = substr($media_item->hash, 0, WildfireDiskFile::$hash_length);
-    else $hash = $media_item->hash;
+    $hash = $this->hash($media_item);
 
     $source = PUBLIC_DIR.$media_item->source;
-    $dir = CACHE_DIR."images/".$hash."/";
-    $apache_dir = PUBLIC_DIR."m/".$hash."/";
+    $dir = $this->cache_dir().$hash."/";
+    $apache_dir = $this->apache_cache_dir().$hash."/";
     $cache_file = $dir . $size .".".$media_item->ext;
     $apache_file = $apache_dir . $size .".".$media_item->ext;
     if(!is_readable($dir)) mkdir($dir, 0777, true);
     if(!is_readable($apache_dir)) mkdir($apache_dir, 0777, true);
 
-    if(is_numeric($media_item->crop_x_1) && is_numeric($media_item->crop_y_1) && is_numeric($media_item->crop_x_2) && is_numeric($media_item->crop_y_2)){
-      $cropped_file = "{$dir}pre_crop_{$media_item->crop_x_1}x{$media_item->crop_y_1}x{$media_item->crop_x_2}x{$media_item->crop_y_2}.$media_item->ext";
+    if($this->crop_ident($media_item)){
+      $cropped_file = "{$dir}pre_crop_".$this->crop_ident($media_item).".$media_item->ext";
       if(!is_readable($cropped_file)) File::crop_image($source, $cropped_file, $media_item->crop_x_1, $media_item->crop_y_1, $media_item->crop_x_2 - $media_item->crop_x_1, $media_item->crop_y_2 - $media_item->crop_y_1);
       $source = $cropped_file;
     }
@@ -55,6 +67,15 @@ class WildfireDiskFile{
 
     File::display_image($cache_file);
   }
+
+  public function clear_cache($media_item){
+    $hash = $this->hash($media_item);
+    $dir = $this->cache_dir().$hash."/*";
+    $apache_dir = $this->apache_cache_dir().$hash."/*";
+    array_map("unlink", glob($dir));
+    array_map("unlink", glob($apache_dir));
+  }
+
   //generates the tag to be displayed - return generic icon if not an image
   public function render($media_item, $size, $title="preview", $class=""){
     if(!strstr($media_item->file_type, "image")) return "<img src='/images/wildfire/themes/v2/files_document.png' alt='".$title."' class='".$class."'>";
