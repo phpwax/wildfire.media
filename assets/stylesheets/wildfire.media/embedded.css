@@ -66,6 +66,7 @@ fieldset#content_tab_media {
 }
 .embedded-media-attachements .media-type-selector, .embedded-media-attachements .media-type-selector .btn, .embedded-media-attachements input[type=text] {
   width: 100%;
+  min-width:0;
 }
 .embedded-media-attachements .media-type-selector a {
   text-decoration:none;
