@@ -111,6 +111,9 @@
   text-align:center;
   position:relative;
 }
+.media-listing-item.page-marker{
+    background:url(/images/wildfire/backgrounds/ajax-loader-white-bg.gif) no-repeat center center;
+}
   .media-listing-item.joined-to-model{
     box-shadow:0 0 5px rgba(0,0,0,0.6);
   }

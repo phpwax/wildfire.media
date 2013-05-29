@@ -27,6 +27,7 @@ var wildfire_media = {
 
       success: function(response) {
         if(controller.append) {
+          $(".page-marker").remove();
           $(".media-listing-wrapper").append(response);
         } else $(".media-listing-wrapper").html(response);
         controller.bindMediaEvents();
