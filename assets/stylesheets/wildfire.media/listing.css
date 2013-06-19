@@ -1,6 +1,3 @@
-#cms-media #page_content {
-  padding:0;
-}
 .media-header {
   padding:23px 20px 20px 20px;
 }
@@ -47,20 +44,16 @@
 }
 
 .media-filter-block .search-filter .icon-search {
-  position:relative;
-  top:7px;
+  position:absolute;
   font-size:35px;
-  left:6px;
   color:#c1c5c8;
   line-height:20px;
-  display:block;
-  margin-bottom:-30px;
+  margin:10px 7px 0;
 }
 
 .media-filter-block .collection-filter {
   float:left;
   margin-right:20px;
-  margin-top:4px;
   width:180px;
 }
 .media-filter-block .collection-filter .collection-dropdown {
@@ -118,6 +111,12 @@
   text-align:center;
   position:relative;
 }
+.media-listing-item.page-marker{
+    background:url(/images/wildfire/backgrounds/ajax-loader-white-bg.gif) no-repeat center center;
+}
+  .media-listing-item.joined-to-model{
+    box-shadow:0 0 5px rgba(0,0,0,0.6);
+  }
 .media-listing-item img {
   position:relative;
   min-width:100%;
@@ -153,12 +152,11 @@
   width:17px;
   margin-left:2px;
 }
-.media-operations .operation_edit:before,
-.media-operations .operation_download:before {
+.media-operations .operation:before {
   visibility:visible;
   border-radius:2px;
   background:#222;
-  content:"✎";
+  content:" ";
   width:20px;
   height:20px;
   display:block;
@@ -169,6 +167,15 @@
   font-weight:normal;
   vertical-align:middle;
   line-height:20px;
+}
+.media-operations .operation_edit:before{
+  content:"✎";
+}
+.media-operations .operation_add:before{
+  content:"➕";
+}
+.media-operations .operation_remove:before{
+  content:"➖";
 }
 .media-operations .operation_download:before {
   content:"📥";

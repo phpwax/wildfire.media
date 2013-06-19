@@ -24,30 +24,36 @@ var wildfire_media = {
         //called when complete
       },
       success: function(response) {
-        console.log("replace:"+replace);
         if(replace) $(".media-listing-wrapper").html(response);
-        else if(controller.append) $(".media-listing-wrapper").append(response);
-        else $(".media-listing-wrapper").html(response);
+		else if(controller.append) {
+          $(".page-marker").remove();
+          $(".media-listing-wrapper").append(response);
+        } else $(".media-listing-wrapper").html(response);
         controller.bindMediaEvents();
-        controller.append = false;
+        controller.append = true;
+        $(window).bind("scroll.infiniteScroll",function(){
+          controller.infiniteScroll(controller);
+        });
      },
       error: function() {
-        //called when there is an error
+        $(window).bind("scroll.infiniteScroll",function(){
+          controller.infiniteScroll(controller);
+        });
       }
     });
   },
-
-
-  loadAppend: function() {
-    this.append = true;
-    this.load();
-  },
-
+  
   getParams: function() {
-    var filter = $(".media-filter-block .search-filter input").val();
-    var collection = $(".media-filter-block #collection_filter").select2("val");
-    var mode = $('.media-filter-block .view-switch a').data("mode");
-    return {"filter":filter, "collection":collection, "mode":mode, page:this.page};
+    var filter = $(".media-filter-block .search-filter input").val(),
+        collection = $(".media-filter-block #collection_filter").select2("val"),
+        mode = $('.media-filter-block .view-switch a').data("mode"),
+        data = {"filter":filter, "collection":collection, "mode":mode, page:this.page};
+    if((embed = $(".media-filter-block").parents(".embedded-media-listing")) && embed.length){
+      data.join_class = embed.attr("data-join-class");
+      data.join_id = embed.attr("data-join-id");
+      data.join_field = embed.attr("data-join-field");
+    }
+    return data;
   },
 
   encodeState: function() {
@@ -89,11 +95,9 @@ var wildfire_media = {
       controller.encodeState();
       e.preventDefault();
     });
-
-    $(window).scroll(function () {
-      if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
-        controller.infiniteScroll();
-      }
+    
+    $(window).bind("scroll.infiniteScroll",function(){
+      controller.infiniteScroll(controller);
     });
 
     $(".media-filter-block .search-submit").click(function(e){
@@ -123,7 +127,7 @@ var wildfire_media = {
   setupUI: function() {
     $(".media-filter-block b").tooltip();
     $('.media-filter-block .dropdown-toggle').dropdown();
-    $(".collection-dropdown").select2({allowClear: true});
+    $("select.collection-dropdown").select2({allowClear: true});
   },
 
   bindMediaEvents: function() {
@@ -147,14 +151,20 @@ var wildfire_media = {
       else $(this).addClass("ratio_l_high");
     });
   },
+  
+  infiniteScroll: function(controller) {
+    if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+      $(window).unbind("scroll.infiniteScroll");
+      var last_page_marker = $(".media-listing-container .page-marker:last");
+          current = last_page_marker.data("current-page");
 
-  infiniteScroll: function() {
-    var current = $(".media-listing-container .page-marker:last").data("last-load");
-    this.page = current+1;
-    this.loadAppend();
+      if(current < last_page_marker.data("total-pages")){
+        controller.page = current + 1;
+        controller.load();
+      }
+    }
   }
-
-
+  
 };
 
 

@@ -1,0 +1,11 @@
+<div class="edit_fields">
+  <div class="raised">
+    <?foreach($fields as $n=>$f):?>
+    <?$nm = Inflections::to_url($n)?>
+    <?if($f->widget != "HiddenInput"):?><div class='field field-<?=$nm?> field-<?=$tabhash?>-<?=$nm?> <?=$model_class?>-<?=$nm?> clearfix'><?endif?>
+    <?=$f->render()?>
+    <?if($f->widget != "HiddenInput"):?></div><?endif?>
+    <?endforeach?>
+    <?=$this->model->render(false, false, "crop")?>
+  </div>
+</div>

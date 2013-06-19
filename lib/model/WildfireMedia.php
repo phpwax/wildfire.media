@@ -5,21 +5,21 @@ class WildfireMedia extends WaxModel{
   public static $classes = array();
   public static $status_options = array('0'=>'pending', 1=>'processed');
   public function setup(){
-    $this->define("media_class", "CharField", array('group'=>'filepreview','widget'=>"HiddenInput"));
-    $this->define("title", "CharField", array('required'=>true, 'scaffold'=>true));
-    $this->define("content", "TextField"); //description
+    $this->define("media_class", "CharField", array('group'=>'media preview','widget'=>"HiddenInput",'primary_group'=>1));
+    $this->define("title", "CharField", array('required'=>true, 'scaffold'=>true, 'group'=>"media preview", 'primary_group'=>1));
+    $this->define("content", "TextField", array()); //description
 
-    $this->define("file_type", "CharField", array('scaffold'=>true, 'group'=>'advanced')); //thats the mime type
-    $this->define("ext", "CharField", array('group'=>'advanced'));
+    $this->define("file_type", "CharField", array('scaffold'=>true, 'editable'=>false)); //thats the mime type
+    $this->define("ext", "CharField", array('editable'=>false));
     /**
      * the source is used as where media sits
      * - file it would be the path relative from public_dir
      * - flickr it would be the image id etc
      */
     $this->define("source", "CharField", array('editable'=>false));
-    $this->define("uploaded_location", "CharField", array('group'=>'advanced'));
+    $this->define("uploaded_location", "CharField", array('editable'=>false));
     $this->define("status", "IntegerField", array('widget'=>'SelectInput', 'choices'=>self::$status_options, 'editable'=>false));
-    $this->define("hash", "CharField", array('group'=>'advanced')); //md5 hash of file contents
+    $this->define("hash", "CharField", array('editable'=>false)); //md5 hash of file contents
 
 
     $this->define("media_type", "CharField", array('editable'=>false)); //friendly name of the media class - Local storage / youtube etc
@@ -38,6 +38,10 @@ class WildfireMedia extends WaxModel{
     $this->define("event_name", "CharField");
 
     $this->define("pre_rendered", "BooleanField", array('editable'=>false));
+    $this->define("crop_x_1", "IntegerField", array("widget"=>"HiddenInput", "group"=>"media preview", "primary_group"=>1));
+    $this->define("crop_y_1", "IntegerField", array("widget"=>"HiddenInput", "group"=>"media preview", "primary_group"=>1));
+    $this->define("crop_x_2", "IntegerField", array("widget"=>"HiddenInput", "group"=>"media preview", "primary_group"=>1));
+    $this->define("crop_y_2", "IntegerField", array("widget"=>"HiddenInput", "group"=>"media preview", "primary_group"=>1));
     parent::setup();
   }
 
@@ -64,6 +68,12 @@ class WildfireMedia extends WaxModel{
     if(!$this->title && $this->columns['title']) $this->title = "Media Item";
     if(!$this->date_created && $this->columns['date_created']) $this->date_created = date("Y-m-d H:i:s");
     if($this->columns['date_modified']) $this->date_modified = date("Y-m-d H:i:s");
+    $old = clone $this;
+    $old = $old->clear()->first();
+    if($old->crop_x_1 != $this->crop_x_1 || $old->crop_x_1 != $this->crop_x_1 || $old->crop_x_1 != $this->crop_x_1 || $old->crop_x_1 != $this->crop_x_1){
+      $obj = new $this->media_class;
+      $obj->clear_cache($this);
+    }
   }
 
   public function scope_files(){
@@ -140,6 +150,19 @@ class WildfireMedia extends WaxModel{
   public function get_collections() {
     $media = new WildfireMedia;
     return $media->group("event_name")->all();
+  }
+
+  public function get_operations($permissions,$join_ids){
+    $operations = $permissions;
+    
+    if($this->media_class){
+      $media = new $this->media_class;
+      if($media->operations) foreach($media->operations as $operation) $operations[$operation] = 1;
+    }
+    if($join_ids && count($join_ids) && in_array($this->primval,$join_ids)) $operations["remove"] = 1;
+    elseif($join_ids) $operations["add"] = 1;
+
+    return $operations;
   }
 
 

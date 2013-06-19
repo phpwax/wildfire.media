@@ -19,7 +19,7 @@ class CMSAdminMediaController extends AdminComponent{
                           'categories' => array('columns'=>array('categories'), 'partial'=>'_filters_select', 'opposite_join_column'=>'media')
                         );
 
-  public $operation_actions = array('edit', 'download');
+  public $operation_actions = array('edit');
   public function events(){
     WaxEvent::add("cms.model.columns", function(){
       $obj = WaxEvent::data();
@@ -91,6 +91,10 @@ class CMSAdminMediaController extends AdminComponent{
     
     if(get("collection",true) && get("collection")!="Show All") $this->model->filter("event_name",get("collection"));
     if(get("filter",true)) $this->model->filter("title","%".get("filter")."%","LIKE");
+    if(($join_class = get("join_class")) && ($join_id = get("join_id")) && ($join_field = get("join_field"))){
+      $existing_media = new $join_class($join_id);
+      $this->existing_media = $existing_media->$join_field;
+    }
     
     
     $this->cms_content = $this->model->page($page, 18);
@@ -102,6 +106,18 @@ class CMSAdminMediaController extends AdminComponent{
     $this->detect_mode();
     $this->detect_filters();
     $this->detect_collection();
+  }
+
+  public function _existing_media(){
+    //if called directly setup the needed data
+    if($this->action == "_existing_media"){
+      $model_class = Request::param("join_class");
+      $this->use_layout = false;
+      $source = new $model_class;
+      $col_data = $source->get_col($this->field = Request::param("field"));
+      $this->media = new $col_data->target_model(Request::param("target_id"));
+      $this->extra_fields_view = $col_data->extra_fields_view;
+    }
   }
   
   protected function detect_filters() {

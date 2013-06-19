@@ -5,13 +5,8 @@ $(document).ready(function() {
     $.get(url, function(response){
       base.append(response);
       wildfire_media.init();
-      $('.media-type-selector').select2({allowClear:true});
+      $('select.media-type-selector').select2({allowClear:true});
     });
     
   }
 });
-
-
-function file_tree_refresh() {
-
-}
