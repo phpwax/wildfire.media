@@ -1,0 +1,10 @@
+<div class="collection-filter">
+  <select name="collection_filter" id="collection_filter" data-value="all" data-placeholder="Show All Collections" class="collection-dropdown">
+    <option></option>
+    <?foreach(WildfireMedia::get_collections() as $collection):?>
+      <?if($collection->event_name):?>
+        <option value="<?=$collection->event_name?>"><?=$collection->event_name?></option>
+      <?endif?>
+    <?endforeach?>
+  </select>
+</div>

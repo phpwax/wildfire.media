@@ -14,9 +14,9 @@ class CMSAdminMediaController extends AdminComponent{
   public $sync_locations = array();
 
   public $filter_fields=array(
-                          'text' => array('columns'=>array('hash', 'title', 'content'), 'partial'=>'_filters_text', 'fuzzy'=>true),
-                          'media_type' => array('columns'=>array('media_type'), 'partial'=>'_filters_grouped_column'),
-                          'categories' => array('columns'=>array('categories'), 'partial'=>'_filters_select', 'opposite_join_column'=>'media')
+                          'text' => array('columns'=>array('hash', 'title', 'content', 'id'), 'partial'=>'_filters_text', 'fuzzy'=>true),
+                          'collection' => array('columns'=>array('collection'), 'partial'=>'_filter_collections'),
+                          'view' => array('columns'=>array('collection'), 'partial'=>'_filter_viewswitch')
                         );
 
   public $operation_actions = array('edit');
@@ -70,42 +70,41 @@ class CMSAdminMediaController extends AdminComponent{
     WaxEvent::run("cms.sync.location", $this);
     WaxEvent::run("cms.sync.run", $this);
   }
-  
-  
+
+
   public function embedded() {
     $this->use_layout=false;
     WaxEvent::run("cms.index.setup", $this);
     $this->view_mode = "embedded";
   }
-  
-  public function filter() {
-    WaxEvent::run("cms.index.setup", $this);
-    $this->use_layout = false;
-    $this->use_view = "_list";
-    $this->model = new $this->model_class("live");
-    
-    if(get("page")) $page = get("page");
-    else $page =1;
-    $this->detect_mode();
-    
-    
-    if(get("collection",true) && get("collection")!="Show All") $this->model->filter("event_name",get("collection"));
-    if(get("filter",true)) $this->model->filter("title","%".get("filter")."%","LIKE");
-    if(($join_class = get("join_class")) && ($join_id = get("join_id")) && ($join_field = get("join_field"))){
-      $existing_media = new $join_class($join_id);
-      $this->existing_media = $existing_media->$join_field;
-    }
-    
-    
-    $this->cms_content = $this->model->page($page, 18);
-    $this->overall_total = $this->cms_content->total_without_limits();
-  }
-  
-  
+
+  // public function filter() {
+  //   WaxEvent::run("cms.index.setup", $this);
+  //   $this->use_layout = false;
+  //   $this->use_view = "_list";
+  //   $this->model = new $this->model_class("live");
+
+  //   if(get("page")) $page = get("page");
+  //   else $page =1;
+  //   $this->detect_mode();
+
+
+  //   if(get("collection",true) && get("collection")!="Show All") $this->model->filter("event_name",get("collection"));
+  //   if(get("filter",true)) $this->model->filter("title","%".get("filter")."%","LIKE");
+  //   if(($join_class = get("join_class")) && ($join_id = get("join_id")) && ($join_field = get("join_field"))){
+  //     $existing_media = new $join_class($join_id);
+  //     $this->existing_media = $existing_media->$join_field;
+  //   }
+
+
+  //   $this->cms_content = $this->model->page($page, 18);
+  //   $this->overall_total = $this->cms_content->total_without_limits();
+  // }
+
+
   public function _filter_block() {
     $this->detect_mode();
-    $this->detect_filters();
-    $this->detect_collection();
+
   }
 
   public function _existing_media(){
@@ -119,16 +118,16 @@ class CMSAdminMediaController extends AdminComponent{
       $this->extra_fields_view = $col_data->extra_fields_view;
     }
   }
-  
-  protected function detect_filters() {
-    if(get("filter",true)) $this->search_filter = get("filter",true);
-  }
-  
-  protected function detect_collection() {
-    if(get("collection",true) && get("collection")!="Show All") $this->collection_value = get("collection",true);
-  }
 
-  
+  // protected function detect_filters() {
+  //   if(get("filter",true)) $this->search_filter = get("filter",true);
+  // }
+
+  // protected function detect_collection() {
+  //   if(get("collection",true) && get("collection")!="Show All") $this->collection_value = get("collection",true);
+  // }
+
+
   protected function detect_mode() {
     if(get("mode")== "standard") $this->mode = "standard";
     if(get("mode")== "time") {
