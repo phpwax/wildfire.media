@@ -1,10 +1,11 @@
 <div class='cms-wrapper cms-uploads-<?if($uploads):?>1 clearfix<?else:?>0<?endif?>'>
 <?if($current_user->allowed($module_name, "index")):?>
   <?
-  $info = Request::param("join");
-  $m = $info['model'];
-  $join = new $m($info['id']);
-  $existing_media = $join->{$info['field']};
+  if($info = Request::param("join_class")){
+    $m = Request::param("join_class");
+    $join = new $m(Request::param("join_id") );
+    if($join && $join->primval && ($f = Request::param("join_field") )) $existing_media = $join->{$f};
+  }
   ?>
   <div class='index_container'>
     <div class="media-header"><h3>Available Media (<?=$cms_content->total_without_limits()?>)</h3></div>

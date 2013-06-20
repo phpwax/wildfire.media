@@ -1,1 +1,9 @@
-<?=partial("_list", array('tree_layout'=>$tree_layout, 'cms_content'=>$cms_content, 'scaffold_columns'=>$scaffold_columns, 'controller'=>$controller, 'operation_actions'=>$operation_actions, 'current_user'=>$current_user, 'module_name'=>$module_name, "model_filters"=>$model_filters))?>
+<?
+if($info = Request::param("join_class")){
+  $m = Request::param("join_class");
+  $join = new $m(Request::param("join_id") );
+  if($join && $join->primval && ($f = Request::param("join_field") )) $existing_media = $join->{$f};
+}
+?>
+
+<?=partial("_list", array('existing_media'=>$existing_media, 'tree_layout'=>$tree_layout, 'cms_content'=>$cms_content, 'scaffold_columns'=>$scaffold_columns, 'controller'=>$controller, 'operation_actions'=>$operation_actions, 'current_user'=>$current_user, 'module_name'=>$module_name, "model_filters"=>$model_filters))?>

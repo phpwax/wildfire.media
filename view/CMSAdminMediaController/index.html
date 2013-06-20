@@ -1,11 +1,18 @@
 <div class='cms-wrapper cms-uploads-<?if($uploads):?>1 clearfix<?else:?>0<?endif?>'>
 <?if($current_user->allowed($module_name, "index")):?>
-  <?$mods = CMSApplication::get_modules()?>
+  <?
+  if($info = Request::param("join_class")){
+    $m = Request::param("join_class") ;
+    $join = new $m(Request::param("join_id") );
+    if($join && $join->primval && ($f = Request::param("join_field") )) $existing_media = $join->{$f};
+  }
+  ?>
+
   <div class='index_container'>
     <div class="media-header"><h3>Available Media (<?=$cms_content->total_without_limits()?>)</h3></div>
     <?=partial("_filter_block");?>
     <div class='listing media-listing-wrapper clearfix' id="data-listing">
-      <?=partial("admin/media/_list", array('tree_layout'=>$tree_layout, 'cms_content'=>$cms_content, 'scaffold_columns'=>$scaffold_columns, 'controller'=>$controller, 'operation_actions'=>$operation_actions, 'current_user'=>$current_user, 'module_name'=>$module_name, "model_filters"=>$model_filters))?>
+      <?=partial("admin/media/_list", array('existing_media'=>$existing_media, 'tree_layout'=>$tree_layout, 'cms_content'=>$cms_content, 'scaffold_columns'=>$scaffold_columns, 'controller'=>$controller, 'operation_actions'=>$operation_actions, 'current_user'=>$current_user, 'module_name'=>$module_name, "model_filters"=>$model_filters))?>
     </div>
   </div>
 <?endif?>
