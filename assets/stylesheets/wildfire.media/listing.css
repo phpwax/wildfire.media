@@ -103,7 +103,7 @@
 }
 .media-listing-item {
   width:172px;
-  height:162px;
+  height:172px;
   overflow:hidden;
   float:left;
   margin:0 20px 20px 0;
@@ -145,12 +145,20 @@
   position:absolute;
   height:100%;
   background:rgba(0,0,0,0.2);
-  padding:2px 15px;
+  padding:2px 15px 0 4px;
 }
 .media-listing-item .media-operations a {
   visibility:hidden;
   width:17px;
   margin-left:2px;
+}
+.media-listing-item span.title{
+  height:24px;
+  padding:4px;
+  text-align: center;
+  overflow: hidden;
+  font-size:85%;
+  display: block;
 }
 .media-operations .operation:before {
   visibility:visible;
