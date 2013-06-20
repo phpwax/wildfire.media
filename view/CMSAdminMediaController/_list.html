@@ -4,11 +4,14 @@
     $joined_ids = array();
     foreach($existing_media as $m) $joined_ids[] = $m->primval;
   }elseif($existing_media) $joined_ids = true;
+
 ?>
 <div class="media-listing-container" data-overall-total="<?=$overall_total?>">
   <?if($mode == "time"):?><?$current = false?><?endif?>
   <?foreach($cms_content as $media):?>
-    <?$operation_actions = $media->get_operations($permissions,$joined_ids);?>
+    <?
+    $operation_actions = $media->get_operations($permissions,$joined_ids);
+    ?>
     <?if($mode == "time" && !$current):?>
       <?$current = $media->month?>
       <div class="date-marker"><h4><?=$media->month?> <?=$media->year?></h4></div>

@@ -30,7 +30,7 @@ var wildfire_media = {
       },
       success: function(response) {
         if(replace) $(".media-listing-wrapper").html(response);
-		else if(controller.append) {
+        else if(controller.append) {
           $(".page-marker").remove();
           $(".media-listing-wrapper").append(response);
         } else $(".media-listing-wrapper").html(response);
@@ -76,14 +76,13 @@ var wildfire_media = {
     if(data.filters && data.filters.collection) ret.push("filters[collection]="+encodeURIComponent(data.filters.collection) );
     if(data.mode) ret.push("mode="+encodeURIComponent(data.mode) );
 
-    history.pushState(data, "", "/admin/media/?"+ret.join("&"));
+    history.pushState(data, "", "?"+ret.join("&"));
   },
 
   restoreState: function(state) {
     var data = (state) ? state : this.getParams(),
           controller = this;
-    console.log(state);
-    console.log(data);
+
     if(data.mode == "time") this.enableTimeMode();
     if(data.filters.text.length > 1 ) $(".filters-media .text_field").val(data.filters.text);
     if(data.filters.collection) $(".collection-filter select").select2("val",data.filters.collection);

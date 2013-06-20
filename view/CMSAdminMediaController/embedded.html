@@ -1,7 +1,17 @@
-<div class='index_container'>
-  <div class="media-header"><h3>Available Media (<?=$cms_content->total_without_limits()?>)</h3></div>
-  <?=partial("_filter_block");?>
-  <div class='listing media-listing-wrapper clearfix' id="data-listing">
-    Load Here
+<div class='cms-wrapper cms-uploads-<?if($uploads):?>1 clearfix<?else:?>0<?endif?>'>
+<?if($current_user->allowed($module_name, "index")):?>
+  <?
+  $info = Request::param("join");
+  $m = $info['model'];
+  $join = new $m($info['id']);
+  $existing_media = $join->{$info['field']};
+  ?>
+  <div class='index_container'>
+    <div class="media-header"><h3>Available Media (<?=$cms_content->total_without_limits()?>)</h3></div>
+    <?=partial("_filter_block");?>
+    <div class='listing media-listing-wrapper clearfix' id="data-listing">
+      <?=partial("admin/media/_list", array('existing_media'=>$existing_media, 'tree_layout'=>$tree_layout, 'cms_content'=>$cms_content, 'scaffold_columns'=>$scaffold_columns, 'controller'=>$controller, 'operation_actions'=>$operation_actions, 'current_user'=>$current_user, 'module_name'=>$module_name, "model_filters"=>$model_filters))?>
+    </div>
   </div>
+<?endif?>
 </div>

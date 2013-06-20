@@ -90,7 +90,7 @@
   border-top:1px solid #dfdfdf;
   border-bottom:1px solid #dfdfdf;
   margin:15px 0;
-  
+
 }
 .media-listing-container .date-marker h4 {
   font-weight:100;
@@ -187,3 +187,6 @@
 
 
 
+#collection_filter{
+  width:180px;
+}

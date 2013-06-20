@@ -5,7 +5,7 @@
     <div class="media-header"><h3>Available Media (<?=$cms_content->total_without_limits()?>)</h3></div>
     <?=partial("_filter_block");?>
     <div class='listing media-listing-wrapper clearfix' id="data-listing">
-      <?=partial("_list", array('tree_layout'=>$tree_layout, 'cms_content'=>$cms_content, 'scaffold_columns'=>$scaffold_columns, 'controller'=>$controller, 'operation_actions'=>$operation_actions, 'current_user'=>$current_user, 'module_name'=>$module_name, "model_filters"=>$model_filters))?>
+      <?=partial("admin/media/_list", array('tree_layout'=>$tree_layout, 'cms_content'=>$cms_content, 'scaffold_columns'=>$scaffold_columns, 'controller'=>$controller, 'operation_actions'=>$operation_actions, 'current_user'=>$current_user, 'module_name'=>$module_name, "model_filters"=>$model_filters))?>
     </div>
   </div>
 <?endif?>

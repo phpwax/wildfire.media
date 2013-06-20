@@ -1,6 +1,6 @@
 
 <div class="edit_fields">
-  <div class='embedded-media-listing raised' data-field="<?=($field = current(array_keys($fields)))?>" data-join-class="<?=$join_model_class?>" data-join-field="<?=$field?>" data-join-id="<?=$model->primval?>" data-new-join-url="/admin/media/_existing_media" data-action="/admin/media/embedded">
+  <div class='embedded-media-listing raised' data-field="<?=($field = current(array_keys($fields)))?>" data-join-class="<?=$join_model_class?>" data-join-field="<?=$field?>" data-join-id="<?=$model->primval?>" data-new-join-url="/admin/media/_existing_media" data-action="/admin/media/embedded/?join[model]=<?=$join_model_class?>&amp;join[field]=<?=$field?>&amp;join[id]=<?=$model->primval?>">
 
 
   </div>
