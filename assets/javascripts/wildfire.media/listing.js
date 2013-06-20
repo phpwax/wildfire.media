@@ -21,7 +21,7 @@ var wildfire_media = {
   load: function(replace) {
     var controller = this;
     $.ajax({
-      url: "/admin/media/index.ajax",
+      url: "/admin/media/index.ajax?page="+controller.page,
       type: "GET",
       dataType: "html",
       data: controller.getParams(),
