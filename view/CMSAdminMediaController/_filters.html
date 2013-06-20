@@ -1,0 +1,32 @@
+<?if($show_form !== false):?>
+  <form
+    action="/admin/<?=$module_name?>/"
+    method="get"
+    id="filters"
+    class='clearfix filters filters-<?=$module_name?> filters_<?=count($filter_fields)?>'>
+<?endif?>
+
+<fieldset
+  class='filters_container'
+  id="filters_container"
+  data-replace=".media-listing-container"
+  data-action="/admin/<?=$module_name?>/" data-view="_list"
+>
+  <?foreach(array_diff_key($_GET, array("route"=>0, "filters"=>0)) as $k => $v):?>
+    <input type="hidden" name="<?=$k?>" value="<?=$v?>">
+  <?endforeach?>
+  <?foreach($filter_fields as $name=>$field):?>
+    <?if($field['editable'] !== false):?>
+      <?=partial($field['partial'], array(
+        'module_name'=>$module_name,
+        'field'=>$field,
+        'name'=>$name,
+        'data'=>$data,
+        'model'=>$model,
+        'model_class'=>$model_class,
+        'model_scope'=>$model_scope,
+        'model_filters'=>$model_filters))?>
+    <?endif?>
+  <?endforeach?>
+</fieldset>
+<?if($show_form !== false):?></form><?endif?>

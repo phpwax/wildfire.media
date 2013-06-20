@@ -1,3 +1,4 @@
+var wm_timer = false;
 var wildfire_media = {
 
   page: 1,
@@ -8,15 +9,19 @@ var wildfire_media = {
     if(!$(".media-listing-wrapper").length) return;
     this.setupUI();
     this.bindEvents();
-    this.restoreState();
-    this.load();
+    var controller = this;
+    window.addEventListener('popstate', function(e){
+      controller.restoreState(e.state);
+      controller.load(true);
+    });
+
   },
 
 
   load: function(replace) {
     var controller = this;
     $.ajax({
-      url: "/admin/media/filter",
+      url: "/admin/media/index.ajax",
       type: "GET",
       dataType: "html",
       data: controller.getParams(),
@@ -42,13 +47,20 @@ var wildfire_media = {
       }
     });
   },
-  
+
   getParams: function() {
-    var filter = $(".media-filter-block .search-filter input").val(),
-        collection = $(".media-filter-block #collection_filter").select2("val"),
-        mode = $('.media-filter-block .view-switch a').data("mode"),
-        data = {"filter":filter, "collection":collection, "mode":mode, page:this.page};
-    if((embed = $(".media-filter-block").parents(".embedded-media-listing")) && embed.length){
+    var filter = $(".filters-media .text_field").val(),
+        collection = $(".collection-filter select").select2("val"),
+        mode = $('.view-switch a').data("mode"),
+        data = {
+          filters:{
+            text:filter,
+            collection:collection
+          },
+          mode:mode
+        }
+        ;
+    if((embed = $(".filters-media").parents(".embedded-media-listing")) && embed.length){
       data.join_class = embed.attr("data-join-class");
       data.join_id = embed.attr("data-join-id");
       data.join_field = embed.attr("data-join-field");
@@ -57,29 +69,33 @@ var wildfire_media = {
   },
 
   encodeState: function() {
-    var ret = [];
-    var data =  this.getParams();
-    for (var d in data) {
-      ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
-    }
+    var ret = [],
+          data =  this.getParams()
+          ;
+    if(data.filters && data.filters.text) ret.push("filters[text]="+encodeURIComponent(data.filters.text) );
+    if(data.filters && data.filters.collection) ret.push("filters[collection]="+encodeURIComponent(data.filters.collection) );
+    if(data.mode) ret.push("mode="+encodeURIComponent(data.mode) );
+
     history.pushState(data, "", "/admin/media/?"+ret.join("&"));
   },
 
-  restoreState: function() {
-    var data = this.getParams();
+  restoreState: function(state) {
+    var data = (state) ? state : this.getParams(),
+          controller = this;
+    console.log(state);
+    console.log(data);
     if(data.mode == "time") this.enableTimeMode();
-    if(data.filter.length > 1 ) $(".media-filter-block .search-filter input").val(data.filter);
-    if(data.collection) {
-      $(".media-filter-block #collection_filter").select2("val",data.collection);
-    }
+    if(data.filters.text.length > 1 ) $(".filters-media .text_field").val(data.filters.text);
+    if(data.filters.collection) $(".collection-filter select").select2("val",data.filters.collection);
+
   },
 
   enableTimeMode: function() {
-    $('.media-filter-block .view-switch a').toggleClass("selected");
+    $('.view-switch a').toggleClass("selected");
   },
 
   disableTimeMode: function() {
-    $('.media-filter-block .view-switch a').toggleClass("selected");
+    $('.view-switch a').toggleClass("selected");
   },
 
   bindEvents: function() {
@@ -89,44 +105,38 @@ var wildfire_media = {
       toggler.data("value", $(this).text());
       toggler.text($(this).text());
     });
-    $('.media-filter-block .view-switch a').click(function(e){
+
+    $("form fieldset.filters_container").find("input, select").unbind("change keyup keydown").bind("change keyup", function(e){
+      e.preventDefault();
+      e.stopPropagation();
+
+      clearTimeout(wm_timer);
+      wm_timer = setTimeout(function(){
+        controller.page = 1;
+        controller.encodeState();
+        controller.load(true);
+      }, 400);
+
+    });
+
+    $('.view-switch a').click(function(e){
+      clearTimeout(wm_timer);
       $(this).toggleClass("selected");
       $(this).data('mode', $(this).data('mode') == 'time' ? 'standard' : 'time');
+      controller.page = 1;
       controller.encodeState();
+      controller.load(true);
       e.preventDefault();
     });
-    
+
     $(window).bind("scroll.infiniteScroll",function(){
       controller.infiniteScroll(controller);
     });
-
-    $(".media-filter-block .search-submit").click(function(e){
-      controller.page = 1;
-      controller.encodeState();
-      controller.load(true);
-      e.preventDefault();
-    });
-
-    $(".media-filter-block .collection-filter #collection_filter").change(function(e){
-      controller.page = 1;
-      controller.encodeState();
-      e.preventDefault();
-      controller.load(true);
-    });
-
-    $(".media-filter-block .view-switch a").click(function(e){
-      console.log("CLICKED")
-      controller.page = 1;
-      controller.encodeState();
-      controller.load(true);
-      e.preventDefault();
-    });
-
   },
 
   setupUI: function() {
-    $(".media-filter-block b").tooltip();
-    $('.media-filter-block .dropdown-toggle').dropdown();
+    $(".filters_container b").tooltip();
+    $('.filters-media .dropdown-toggle').dropdown();
     $("select.collection-dropdown").select2({allowClear: true});
   },
 
@@ -151,7 +161,7 @@ var wildfire_media = {
       else $(this).addClass("ratio_l_high");
     });
   },
-  
+
   infiniteScroll: function(controller) {
     if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
       $(window).unbind("scroll.infiniteScroll");
@@ -164,7 +174,7 @@ var wildfire_media = {
       }
     }
   }
-  
+
 };
 
 

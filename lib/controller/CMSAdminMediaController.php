@@ -2,7 +2,7 @@
 class CMSAdminMediaController extends AdminComponent{
   public $uploads = true;
   public $dashboard = false;
-  public $per_page = 1000000;
+  public $per_page = 30;
   public $preview_hover = true;
   public $module_name = "media";
   public $model_class="WildfireMedia";
@@ -15,7 +15,7 @@ class CMSAdminMediaController extends AdminComponent{
 
   public $filter_fields=array(
                           'text' => array('columns'=>array('hash', 'title', 'content', 'id'), 'partial'=>'_filters_text', 'fuzzy'=>true),
-                          'collection' => array('columns'=>array('collection'), 'partial'=>'_filter_collections'),
+                          'collection' => array('columns'=>array('event_name'), 'partial'=>'_filter_collections'),
                           'view' => array('columns'=>array('collection'), 'partial'=>'_filter_viewswitch')
                         );
 
@@ -24,6 +24,7 @@ class CMSAdminMediaController extends AdminComponent{
     WaxEvent::add("cms.model.columns", function(){
       $obj = WaxEvent::data();
       $obj->scaffold_columns['preview'] = true;
+      $obj->detect_mode();
     });
     parent::events();
 
@@ -78,29 +79,6 @@ class CMSAdminMediaController extends AdminComponent{
     $this->view_mode = "embedded";
   }
 
-  // public function filter() {
-  //   WaxEvent::run("cms.index.setup", $this);
-  //   $this->use_layout = false;
-  //   $this->use_view = "_list";
-  //   $this->model = new $this->model_class("live");
-
-  //   if(get("page")) $page = get("page");
-  //   else $page =1;
-  //   $this->detect_mode();
-
-
-  //   if(get("collection",true) && get("collection")!="Show All") $this->model->filter("event_name",get("collection"));
-  //   if(get("filter",true)) $this->model->filter("title","%".get("filter")."%","LIKE");
-  //   if(($join_class = get("join_class")) && ($join_id = get("join_id")) && ($join_field = get("join_field"))){
-  //     $existing_media = new $join_class($join_id);
-  //     $this->existing_media = $existing_media->$join_field;
-  //   }
-
-
-  //   $this->cms_content = $this->model->page($page, 18);
-  //   $this->overall_total = $this->cms_content->total_without_limits();
-  // }
-
 
   public function _filter_block() {
     $this->detect_mode();
@@ -119,18 +97,9 @@ class CMSAdminMediaController extends AdminComponent{
     }
   }
 
-  // protected function detect_filters() {
-  //   if(get("filter",true)) $this->search_filter = get("filter",true);
-  // }
-
-  // protected function detect_collection() {
-  //   if(get("collection",true) && get("collection")!="Show All") $this->collection_value = get("collection",true);
-  // }
-
-
   protected function detect_mode() {
-    if(get("mode")== "standard") $this->mode = "standard";
-    if(get("mode")== "time") {
+    if(Request::get("mode")== "standard") $this->mode = "standard";
+    if(Request::get("mode")== "time") {
       $this->mode = "time";
       $this->model->select_columns = "*, MONTHNAME(date_created) as month, YEAR(`date_created`) as year";
       $this->model->order("date_created DESC");
