@@ -13,6 +13,7 @@ class CMSAdminMediaController extends AdminComponent{
   public $sync_class = false;
   public $sync_locations = array();
 
+  public $has_help = array("index");
   public $filter_fields=array(
                           'text' => array('columns'=>array('hash', 'title', 'content', 'id'), 'partial'=>'_filters_text', 'fuzzy'=>true),
                           'collection' => array('columns'=>array('event_name'), 'partial'=>'_filter_collections'),
