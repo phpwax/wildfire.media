@@ -1,0 +1,31 @@
+<?
+$data =array(
+  'introduction'=>"<p>This page allows you to edit information about a specific file; images can be cropped from here as well.</p>",
+  'steps'=> array(
+    array(
+      'elements'=>array(
+        array(
+          'selector'=> '.field-media-preview-title',
+          'copy'=>'If you want to change the name used for this file, you can edit it here.',
+          'position'=>array('top'=>'-30', 'left'=>'10')
+        )
+      )
+    ),
+    array(
+      'elements'=>array(
+        array(
+          'selector'=> 'img.crop',
+          'copy'=>'For images, you can drag and crop a the image for some basic editing.',
+          'position'=>array('top'=>'-45', 'left'=>'-10')
+        )
+      )
+    )
+
+
+  )
+
+);
+
+?>
+
+<?=json_encode($data);?>
