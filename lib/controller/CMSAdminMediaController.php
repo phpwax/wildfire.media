@@ -74,9 +74,7 @@ class CMSAdminMediaController extends AdminComponent{
 
 
   public function embedded() {
-    $this->use_layout=false;
     WaxEvent::run("cms.index.setup", $this);
-    $this->view_mode = "embedded";
   }
 
 

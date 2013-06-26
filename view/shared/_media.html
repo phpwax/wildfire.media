@@ -1,8 +1,9 @@
-
 <div class="edit_fields embedded-media-listing-holder">
-  <div class='embedded-media-listing raised' data-field="<?=($field = current(array_keys($fields)))?>" data-join-class="<?=$join_model_class?>" data-join-field="<?=$field?>" data-join-id="<?=$model->primval?>" data-new-join-url="/admin/media/_existing_media" data-action="/admin/media/embedded/?join_class=<?=$join_model_class?>&amp;join_field=<?=$field?>&amp;join_id=<?=$model->primval?>">
-
-
+  <div class='embedded-media-listing raised' data-field="<?=($field = current(array_keys($fields)))?>" data-join-class="<?=$join_model_class?>" data-join-field="<?=$field?>" data-join-id="<?=$model->primval?>" data-new-join-url="/admin/media/_existing_media">
+     <?=partial("admin/media/embedded", array(
+      "join_class" => $join_model_class,
+      "join_field" => $field,
+      "join_id" => $model->primval))?>
   </div>
 </div>
 <div class="meta_tabs embedded-media-attachements">
