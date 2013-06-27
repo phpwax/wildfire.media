@@ -62,10 +62,12 @@ class WildfireDiskFile{
       $source = $cropped_file;
     }
 
-    if(!is_readable($apache_file)) File::smart_resize_image($source, $apache_file, $size, false, "nocrop");
-    if(!is_readable($cache_file)) File::smart_resize_image($source, $cache_file, $size, false, "nocrop");
+    if(!is_readable($cache_file) && is_writable($dir)) File::smart_resize_image($source, $cache_file, $size, false, "nocrop");
+    if(!is_readable($apache_file) && is_writable($apache_dir)) File::smart_resize_image($source, $apache_file, $size, false, "nocrop");
 
-    File::display_image($cache_file);
+    if(is_readable($cache_file)) File::display_image($cache_file);
+    elseif(is_readable($apache_file)) File::display_image($apache_file);
+    else throw new WaxException("Couldn't serve asset, please check if the cache folder are writable. By the way you look handsome today.");
   }
 
   public function clear_cache($media_item){
