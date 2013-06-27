@@ -1,0 +1,40 @@
+<?
+$data =array(
+  'introduction'=>"<p>This page allows you to view all media uploaded to this CMS and (where applicable) edit them.</p>",
+  'steps'=> array(
+    array(
+      'elements'=>array(
+        array(
+          'selector'=> '#filters_container',
+          'copy'=>'These allow you to search the media for specific things. Either part of its name, of collection you added it to.',
+          'position'=>array('top'=>'95', 'left'=>'0')
+        )
+      )
+    ),
+    array(
+      'elements'=>array(
+        array(
+          'selector'=> '#filters_container .date-view-switch .icon-time',
+          'copy'=>'These allows you to swap between layout types. By default it is shown as collection base, but you can change to date view instead.',
+          'position'=>array('top'=>'-55', 'left'=>'-10')
+        )
+      )
+    ),
+    array(
+      'elements'=>array(
+        array(
+          'selector'=> '.media-listing-item:eq(0)',
+          'copy'=>'By hovering over an item in the listing you\'ll get options to edit or download the file.',
+          'position'=>array('top'=>'-55', 'left'=>'-10')
+        )
+      )
+    )
+
+
+  )
+
+);
+
+?>
+
+<?=json_encode($data);?>
