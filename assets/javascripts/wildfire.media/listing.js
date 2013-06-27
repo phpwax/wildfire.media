@@ -12,7 +12,6 @@ var wildfire_media = {
     var controller = this;
     window.addEventListener('popstate', function(e){
       controller.restoreState(e.state);
-      controller.load(true);
     });
 
   },

@@ -1,6 +1,7 @@
 <div class="edit_fields embedded-media-listing-holder">
   <div class='embedded-media-listing raised' data-field="<?=($field = current(array_keys($fields)))?>" data-join-class="<?=$join_model_class?>" data-join-field="<?=$field?>" data-join-id="<?=$model->primval?>" data-new-join-url="/admin/media/_existing_media">
-     <?=partial("admin/media/embedded", array(
+     <?=partial(($media_controller?$media_controller:"admin/media")."/embedded", array(
+      "media_controller" => $media_controller,
       "join_class" => $join_model_class,
       "join_field" => $field,
       "join_id" => $model->primval))?>
