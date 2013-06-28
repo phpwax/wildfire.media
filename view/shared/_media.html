@@ -7,6 +7,8 @@
       "join_id" => $model->primval))?>
   </div>
 </div>
+<?if(!$inline):?>
 <div class="meta_tabs embedded-media-attachements">
   <?=partial("admin/media/".($field_data->existing_media_list?$field_data->existing_media_list:"_existing_media_list"), array("field"=>$field, "field_data"=>$field_data, "file_tags"=>$file_tags, "media"=>$media, "model"=>$model))?>
 </div>
+<?endif?>
