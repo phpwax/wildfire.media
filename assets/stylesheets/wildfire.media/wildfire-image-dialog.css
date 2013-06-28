@@ -1,0 +1,31 @@
+#wildfire-image-dialog .media-operations{
+  display:none;
+}
+#wildfire-image-dialog .media-listing-item{
+  width:150px;
+  height:150px;
+}
+#wildfire-image-dialog .media-listing-item img{
+  width:150px;
+}
+
+#wildfire-image-dialog .embedded-media-listing{
+  width:75%;
+  float:left;
+}
+
+#wildfire-image-dialog .image-info-container{
+  float:left;
+  width:23%;
+  margin-left:2%;
+  padding:10px;
+  box-shadow:0 0 5px rgba(0,0,0,0.3);
+  background:#fff;
+}
+  #wildfire-image-dialog .image-info-container label,
+  #wildfire-image-dialog .image-info-container input{
+    width:100%;
+  }
+  #wildfire-image-dialog .image-info-container select{
+    width:77%;
+  }
