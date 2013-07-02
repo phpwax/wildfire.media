@@ -9,6 +9,7 @@ var wildfire_media = {
     if(!$(".media-listing-wrapper").length) return;
     this.setupUI();
     this.bindEvents();
+    this.bindMediaEvents();
     var controller = this;
     window.addEventListener('popstate', function(e){
       controller.restoreState(e.state);
