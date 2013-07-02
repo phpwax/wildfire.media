@@ -1,3 +1,6 @@
+#wildfire-image-dialog{
+  display:none;
+}
 #wildfire-image-dialog .media-operations{
   display:none;
 }
@@ -27,5 +30,10 @@
     width:100%;
   }
   #wildfire-image-dialog .image-info-container select{
-    width:77%;
+    width:100%;
   }
+
+#wildfire-image-dialog .media-listing-wrapper{
+  height:310px;
+  overflow: auto;
+}
