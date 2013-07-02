@@ -15,7 +15,7 @@
       <?$current = $media->month?>
       <div class="date-marker"><h4><?=$media->month?> <?=$media->year?></h4></div>
     <?endif?>
-    <div id="row_<?=$media->primval?>" class="media-listing-item <?if(in_array($media->primval,$joined_ids)) echo 'joined-to-model'?>" data-primval="<?=$media->primval()?>" data-media="<?=strtolower($media->media_class)?>">
+    <div id="row_<?=$media->primval?>" class="media-listing-item <?if(in_array($media->primval,$joined_ids)) echo 'joined-to-model'?> <?=strtolower($media->media_class)?>" data-primval="<?=$media->primval()?>" data-media="<?=strtolower($media->media_class)?>">
       <span class='title'><?=$media->title?></span>
       <div class="media-operations">
         <?=partial("_operations", array("current_user"=>$current_user, "controller"=>$controller, "action"=>$action, "row"=>$media, 'operation_actions'=>array(), 'permissions'=>$operation_actions))?>
