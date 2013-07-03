@@ -4,7 +4,8 @@
       "media_controller" => $media_controller,
       "join_class" => $join_model_class,
       "join_field" => $field,
-      "join_id" => $model->primval))?>
+      "join_id" => $model->primval,
+      "embedded"=>isset($embedded)?$embedded:1))?>
   </div>
 </div>
 <?if(!$inline):?>
