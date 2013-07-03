@@ -2,7 +2,7 @@ var wm_timer = false;
 var wildfire_media = {
 
   page: 1,
-  append: false,
+  append: true,
 
 
   init: function() {
@@ -35,7 +35,6 @@ var wildfire_media = {
           $(".media-listing-wrapper").append(response);
         } else $(".media-listing-wrapper").html(response);
         controller.bindMediaEvents();
-        controller.append = true;
         $(window).bind("scroll.infiniteScroll",function(){
           controller.infiniteScroll(controller);
         });
@@ -179,6 +178,5 @@ var wildfire_media = {
 
 jQuery(document).ready(function() {
   wildfire_media.init();
-
 });
 
