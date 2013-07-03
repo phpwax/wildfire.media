@@ -2,11 +2,13 @@ var wm_timer = false;
 var wildfire_media = {
 
   page: 1,
-  append: true,
+  append: false,
+  template: $(".media_view:eq(0)"),
 
 
   init: function() {
-    if(!$(".media-listing-wrapper").length) return;
+    var controller = this;
+    if(!controller.template.find(".media-listing-wrapper").length) return;
     this.setupUI();
     this.bindEvents();
     this.bindMediaEvents();
@@ -29,18 +31,19 @@ var wildfire_media = {
         //called when complete
       },
       success: function(response) {
-        if(replace) $(".media-listing-wrapper").html(response);
+        if(replace) controller.template.find(".media-listing-wrapper").html(response);
         else if(controller.append) {
-          $(".page-marker").remove();
-          $(".media-listing-wrapper").append(response);
-        } else $(".media-listing-wrapper").html(response);
+          controller.template.find(".page-marker").remove();
+          controller.template.find(".media-listing-wrapper").append(response);
+        } else controller.template.find(".media-listing-wrapper").html(response);
         controller.bindMediaEvents();
-        $(window).bind("scroll.infiniteScroll",function(){
+        controller.append = true;
+        controller.template.bind("scroll.infiniteScroll",function(){
           controller.infiniteScroll(controller);
         });
      },
       error: function() {
-        $(window).bind("scroll.infiniteScroll",function(){
+        controller.template.bind("scroll.infiniteScroll",function(){
           controller.infiniteScroll(controller);
         });
       }
@@ -48,9 +51,10 @@ var wildfire_media = {
   },
 
   getParams: function() {
-    var filter = $(".filters-media .text_field").val(),
-        collection = $(".collection-filter select").select2("val"),
-        mode = $('.view-switch a').data("mode"),
+    var controller = this,
+        filter = controller.template.find(".filters-media .text_field").val(),
+        collection = controller.template.find(".collection-filter select").select2("val"),
+        mode = controller.template.find('.view-switch a').data("mode"),
         data = {
           filters:{
             text:filter,
@@ -59,7 +63,7 @@ var wildfire_media = {
           mode:mode
         }
         ;
-    if((embed = $(".filters-media").parents(".embedded-media-listing")) && embed.length){
+    if((embed = controller.template.find(".filters-media").parents(".embedded-media-listing")) && embed.length){
       data.join_class = embed.attr("data-join-class");
       data.join_id = embed.attr("data-join-id");
       data.join_field = embed.attr("data-join-field");
@@ -83,28 +87,28 @@ var wildfire_media = {
           controller = this;
 
     if(data.mode == "time") this.enableTimeMode();
-    if(data.filters.text.length > 1 ) $(".filters-media .text_field").val(data.filters.text);
-    if(data.filters.collection) $(".collection-filter select").select2("val",data.filters.collection);
+    if(data.filters.text.length > 1 ) controller.template.find(".filters-media .text_field").val(data.filters.text);
+    if(data.filters.collection) controller.template.find(".collection-filter select").select2("val",data.filters.collection);
 
   },
 
   enableTimeMode: function() {
-    $('.view-switch a').toggleClass("selected");
+    controller.template.find('.view-switch a').toggleClass("selected");
   },
 
   disableTimeMode: function() {
-    $('.view-switch a').toggleClass("selected");
+    controller.template.find('.view-switch a').toggleClass("selected");
   },
 
   bindEvents: function() {
     var controller = this;
-    $('.media-filter-block .dropdown-menu a').click(function(){
+    controller.template.find('.media-filter-block .dropdown-menu a').click(function(){
       var toggler = $(this).parents(".btn-group").find(".dropdown-toggle .collection");
       toggler.data("value", $(this).text());
       toggler.text($(this).text());
     });
 
-    $("form fieldset.filters_container").find("input, select").unbind("change keyup keydown").bind("change keyup", function(e){
+    controller.template.find("form fieldset.filters_container").find("input, select").unbind("change keyup keydown").bind("change keyup", function(e){
       e.preventDefault();
       e.stopPropagation();
 
@@ -117,7 +121,7 @@ var wildfire_media = {
 
     });
 
-    $('.view-switch a').click(function(e){
+    controller.template.find('.view-switch a').click(function(e){
       clearTimeout(wm_timer);
       $(this).toggleClass("selected");
       $(this).data('mode', $(this).data('mode') == 'time' ? 'standard' : 'time');
@@ -127,27 +131,30 @@ var wildfire_media = {
       e.preventDefault();
     });
 
-    $(window).bind("scroll.infiniteScroll",function(){
+    controller.template.bind("scroll.infiniteScroll",function(){
       controller.infiniteScroll(controller);
     });
   },
 
   setupUI: function() {
-    $(".filters_container b").tooltip();
-    $('.filters-media .dropdown-toggle').dropdown();
-    $("select.collection-dropdown").select2({allowClear: true});
+    var controller = this;
+    controller.template.find(".filters_container b").tooltip();
+    controller.template.find('.filters-media .dropdown-toggle').dropdown();
+    controller.template.find("select.collection-dropdown").select2({allowClear: true});
   },
 
   bindMediaEvents: function() {
+    var controller = this;
     this.calculateImageRatios();
-    $(".media-listing-item").hoverIntent(
+    controller.template.find(".media-listing-item").hoverIntent(
       function(){$(this).toggleClass("hovered");},
       function(){$(this).toggleClass("hovered");}
     );
   },
 
   calculateImageRatios: function() {
-    $(".media-listing-item img").each(function(){
+    var controller = this;
+    controller.template.find(".media-listing-item img").each(function(){
       var width = $(this).width();
       var height = $(this).height();
       var ratio = width/height;
@@ -163,7 +170,7 @@ var wildfire_media = {
   infiniteScroll: function(controller) {
     if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
       $(window).unbind("scroll.infiniteScroll");
-      var last_page_marker = $(".media-listing-container .page-marker:last");
+      var last_page_marker = controller.template.find(".media-listing-container .page-marker:last");
           current = last_page_marker.data("current-page");
 
       if(current < last_page_marker.data("total-pages")){
@@ -176,7 +183,11 @@ var wildfire_media = {
 };
 
 
-jQuery(document).ready(function() {
-  wildfire_media.init();
+jQuery(function(){
+  $(".media_view").each(function(){
+    var wm = wildfire_media;
+    wm.template = $(this);
+    wm.init();
+  });
 });
 
