@@ -193,7 +193,10 @@
   display:block;
 }
 
-
+#cms-content #data-listing.search-result-list{
+  padding:0;
+  background:none;
+}
 
 #collection_filter{
   width:180px;
