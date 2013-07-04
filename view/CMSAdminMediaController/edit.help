@@ -1,5 +1,6 @@
 <?
 $data =array(
+  'action'=>$action,
   'introduction'=>"<p>This page allows you to edit information about a specific file; images can be cropped from here as well.</p>",
   'steps'=> array(
     array(

@@ -1,5 +1,6 @@
 <?
 $data =array(
+  'action'=>$action,
   'introduction'=>"<p>This page allows you to view all media uploaded to this CMS and (where applicable) edit them.</p>",
   'steps'=> array(
     array(
