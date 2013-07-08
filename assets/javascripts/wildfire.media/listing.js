@@ -15,7 +15,9 @@ wildfire_media.prototype.init = function() {
   });
 };
 wildfire_media.prototype.load = function(replace) {
-  var controller = this;
+  var controller = this,
+      marker = controller.template.find(".media-listing-container .page-marker:last").addClass("loading");
+
   $.ajax({
     url: "/admin/media/index.ajax?page="+controller.page,
     type: "GET",
@@ -25,6 +27,7 @@ wildfire_media.prototype.load = function(replace) {
       //called when complete
     },
     success: function(response) {
+      marker.removeClass("loading");
       if(replace) controller.template.find(".media-listing-wrapper").html(response);
       else if(controller.append) {
         controller.template.find(".page-marker").remove();
@@ -123,7 +126,6 @@ wildfire_media.prototype.bindEvents = function() {
 
   controller.template.find(".media-listing-wrapper").data({controller:controller}).bind("scroll.infiniteScroll",function(event){
     var controller = jQuery(this).data("controller");
-    console.log(controller.template.find(".media-listing-wrapper"));
     controller.infiniteScroll(controller);
   });
 };
@@ -156,8 +158,13 @@ wildfire_media.prototype.calculateImageRatios = function() {
   });
 };
 wildfire_media.prototype.infiniteScroll = function(controller) {
-  if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
-    controller.template.find(".media-listing-wrapper").unbind("scroll.infiniteScroll");
+  var wrapper = controller.template.find(".media-listing-wrapper");
+      block_height = 0;
+  wrapper.find(".media-listing-container").each(function(){
+    block_height += jQuery(this).height();
+  });
+  if(wrapper.scrollTop() + wrapper.height() >= block_height) {
+    wrapper.unbind("scroll.infiniteScroll");
     var last_page_marker = controller.template.find(".media-listing-container .page-marker:last"),
         current = last_page_marker.data("current-page");
 
@@ -168,10 +175,22 @@ wildfire_media.prototype.infiniteScroll = function(controller) {
   }
 };
 
+function resize_media(){
+  if(jQuery("#cms-media .media-listing-wrapper").length){
+    var wrapper = jQuery("#cms-media .media-listing-wrapper"),
+        window_height = jQuery(window).height(),
+        offset = wrapper.offset().top;
+    wrapper.height(window_height-offset-20);
+  }
+}
 
 jQuery(function(){
+
+  resize_media();
+  jQuery(window).resize(resize_media);
+
   $(".media_view").each(function(){
-    var wm = new wildfire_media;
+    var wm = new wildfire_media();
     wm.template = $(this);
     wm.init();
   });
