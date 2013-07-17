@@ -96,7 +96,7 @@ class CMSAdminMediaController extends AdminComponent{
     }
   }
 
-  protected function detect_mode() {
+  public function detect_mode() {
     if(Request::get("mode")== "standard") $this->mode = "standard";
     if(Request::get("mode")== "time") {
       $this->mode = "time";
