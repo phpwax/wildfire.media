@@ -1,5 +1,5 @@
 <?
-$data =array(
+$this->help_data = array(
   'action'=>$action,
   'introduction'=>"<p>This page allows you to view all media uploaded to this CMS and (where applicable) edit them.</p>",
   'steps'=> array(
@@ -35,7 +35,7 @@ $data =array(
   )
 
 );
-WaxEvent::run("help.".$module_name.".extend", $data);
+WaxEvent::run("help.".$module_name.".".$action.".extend", $this);
 ?>
 
-<?=json_encode($data);?>
+<?=json_encode($this->help_data);?>
