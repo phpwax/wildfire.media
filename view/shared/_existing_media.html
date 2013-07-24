@@ -10,7 +10,7 @@
     </div>
     <?=$media->render(172)?>
   </div>
-  
+
   <div class="joined-media-info">
     <div class='tag_operations clearfix'>
       <a href='#' data-primval='<?=$media->primval?>' class='button js-added remove-button'>REMOVE</a>
@@ -19,7 +19,7 @@
 
     <input type="hidden" name="joins[<?=$field?>][<?=$media->primval?>][id]" value="<?=$media->primval?>" id="join_file_<?=$media->primval?>" class="hidden joined_field" checked="checked">
     <div class='tag_options clearfix t_<?=$media->tag?> o_<?=$media->join_order?>'>
-      <?=partial($extra_fields_view?$extra_fields_view:"_media_extra_fields", array("field"=>$field, "media"=>$media))?>
+      <?=partial($extra_fields_view?$extra_fields_view:"_media_extra_fields", array("field"=>$field, "media"=>$media, 'file_tags'=>$file_tags))?>
     </div>
   </div>
 </div>
