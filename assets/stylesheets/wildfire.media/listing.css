@@ -188,6 +188,9 @@
 .media-operations .operation_download:before {
   content:"📥";
 }
+.media-operations .operation_link:before {
+  content:"🔗";
+}
 
 .media-listing-item.hovered .media-operations {
   display:block;
