@@ -42,8 +42,6 @@
   font-size:100%;
   font-weight:normal;
   display: block;
+  margin-top:10px;
+  margin-bottom:3px;
 }
-#wildfire-image-dialog .image-info-container input {
-  margin-bottom:10px;
-}
-
