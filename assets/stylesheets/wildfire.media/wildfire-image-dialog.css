@@ -48,6 +48,8 @@
 .ui-dialog-tinymce {
   background:#f0f0f0;
   border:1px solid #dfdfdf;
+  box-shadow: 1px 1px 15px rgba(0,0,0,0.6);
+  border-radius: 0;
 }
 .ui-dialog-tinymce .ui-dialog-titlebar {
   background:none;
