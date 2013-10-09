@@ -45,3 +45,11 @@
   margin-top:10px;
   margin-bottom:3px;
 }
+.ui-dialog-tinymce {
+  background:#f0f0f0;
+  border:1px solid #dfdfdf;
+}
+.ui-dialog-tinymce .ui-dialog-titlebar {
+  background:none;
+  border:0;
+}
