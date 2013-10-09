@@ -13,7 +13,7 @@
 
   ?>
   <?foreach($existing_media as $i=>$media):?>
-    <?=partial("admin/media/_existing_media",array('media'=>$media, 'field'=>$field, 'joined_ids'=>$joined_ids, 'extra_fields_view'=>$field_data->extra_fields_view))?>
+    <?=partial("admin/media/_existing_media",array('media'=>$media, 'field'=>$field, 'joined_ids'=>$joined_ids, 'extra_fields_view'=>$field_data->extra_fields_view, 'file_tags'=>$file_tags))?>
   <?endforeach?>
 
   <script type="text/javascript" charset="utf-8">

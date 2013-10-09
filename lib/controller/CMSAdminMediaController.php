@@ -93,6 +93,7 @@ class CMSAdminMediaController extends AdminComponent{
       $col_data = $source->get_col($this->field = Request::param("field"));
       $this->media = new $col_data->target_model(Request::param("target_id"));
       $this->extra_fields_view = $col_data->extra_fields_view;
+      $this->file_tags = Request::param("file_tags");
     }
   }
 

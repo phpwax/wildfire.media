@@ -188,15 +188,14 @@
 .media-operations .operation_download:before {
   content:"📥";
 }
+.media-operations .operation_link:before {
+  content:"🔗";
+}
 
 .media-listing-item.hovered .media-operations {
   display:block;
 }
 
-#cms-content #data-listing.search-result-list{
-  padding:0;
-  background:none;
-}
 
 #collection_filter{
   width:180px;
