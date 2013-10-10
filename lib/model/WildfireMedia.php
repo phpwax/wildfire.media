@@ -125,6 +125,7 @@ class WildfireMedia extends WaxModel{
     $handler_class = $this->get_handler($stream);
     $handler = new $handler_class;
     $meta = $handler->upload($stream, $options);
+    if(isset($options["filename"])) unset($options["filename"]);
 
     // Upload failed, return false now
     if(!$meta) return false;
