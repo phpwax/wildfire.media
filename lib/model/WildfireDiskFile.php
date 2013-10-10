@@ -137,7 +137,7 @@ class WildfireDiskFile{
     //now look at the db for ones that might be missing
     $media = new WildfireMedia;
     foreach($ids as $i) $media->filter("id", $i, "!=");
-    foreach($media->filter("status", 1)->filter("media_class", $class)->filter("sync_location", $location)->all() as $r) if(!is_readable(PUBLID_DIR.$r->source)) $r->update_attributes(array('status',-1));
+    foreach($media->filter("status", 1)->filter("media_class", $class)->filter("sync_location", $location)->all() as $r) if(!is_readable(PUBLIC_DIR.$r->source)) $r->update_attributes(array('status',-1));
 
     return $info;
   }
