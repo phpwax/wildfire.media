@@ -160,7 +160,7 @@ class WildfireDiskFile{
     }
     
     if($filename && $file_data) {
-      if(!$options["destination"]) $options["destination"] = dirname($this->generate_fs_path($filename));
+      if(!$options["destination"]) $options["destination"] = dirname($this->generate_fs_path($filename))."/";
       $final_location = $options["destination"].$filename;
       $success = file_put_contents($final_location , $file_data);
       if($success) {
