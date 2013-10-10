@@ -177,6 +177,7 @@ class WildfireDiskFile{
     $meta["hash"] = hash_hmac('sha1', $data, md5($data));
     $meta["ext"] = $this->get_extension($filename);
     $meta["uploaded_location"] = str_replace(PUBLIC_DIR, "", $final_location);    
+    $meta["source"] = $meta["uploaded_location"];    
     return $meta;
   }
   
