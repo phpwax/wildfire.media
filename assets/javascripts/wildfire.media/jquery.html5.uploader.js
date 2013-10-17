@@ -100,20 +100,21 @@ jQuery(document).ready(function($){
 			}else drop_area.addClass('fu-failed');
 		});
 
-		file_upload.bind("change", function(e){
-			//not sure if this is needed?
-		});
+		
 		/**
 		 * DRAG & DROP EVENTS TO TRIGGER THE UPLOADS
 		 */
+		var collection = $();
 		drop_area.bind("dragleave", function(e){
+			collection = collection.not(e.target);
 			e.preventDefault();
 			e.stopPropagation();
-      if(event.pageX=="0") jQuery(this).addClass("fu-dragleave").removeClass("fu-dragover fu-dragenter");
+      if(collection.length === 0) jQuery(this).addClass("fu-dragleave").removeClass("fu-dragover fu-dragenter");
 		}).bind("dragenter", function(e){
 			e.preventDefault();
 			e.stopPropagation();
-			jQuery(this).addClass("fu-dragenter");
+			if(collection.length === 0) jQuery(this).addClass("fu-dragenter");
+			collection = collection.add(e.target);
 		}).bind("dragover", function(e){
 			e.preventDefault();
 			e.stopPropagation();
