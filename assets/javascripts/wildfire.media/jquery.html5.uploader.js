@@ -36,7 +36,7 @@ jQuery(document).ready(function($){
 
 			xhr.open("post", dest, true);
 			// Set appropriate headers
-			xhr.setRequestHeader("Content-Type", "multipart/form-data");
+			xhr.setRequestHeader("Content-Type", "multipart/form-data; charset=utf-8; boundary=" + Math.random().toString().substr(2));
 			xhr.setRequestHeader("X-File-Name", file.name);
 			xhr.setRequestHeader("X-File-Size", file.size);
 			xhr.setRequestHeader("X-File-Type", file.type);
