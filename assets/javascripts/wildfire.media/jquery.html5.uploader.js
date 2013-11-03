@@ -1,8 +1,22 @@
 jQuery(document).ready(function($){
+
 	if(typeof FileReader != "undefined" && !window.externalHost){
 		$(".old_file_upoad_holder").hide();
+
+
+		var droptarget = $("<div id='file-drop-target'></div>");
+		droptarget.css({
+			"position": "fixed",
+			"top"			: "0px",
+			"left"		: "0px",
+			"bottom"	: "0px",
+			"right"		: "0px",
+			"z-index"	: "9999"
+		});
+		$("body").prepend(droptarget);
+
 		jQuery.event.props.push("dataTransfer");
-		var drop_area = jQuery("body"),
+		var drop_area = jQuery("#file-drop-target"),
 				file_upload = jQuery(".file-upload")
 				;
 
