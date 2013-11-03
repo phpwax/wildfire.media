@@ -1,5 +1,5 @@
 
-body.fu-dragover #upload_indicator_wrapper {
+div.fu-dragover #upload_indicator_wrapper {
   background:rgba(0,0,0,0.4);
   box-shadow: inset 0 0 15px 15px rgba(0,0,0,0.9);
   position:absolute;
@@ -10,7 +10,7 @@ body.fu-dragover #upload_indicator_wrapper {
   height:100%;
   height: calc(100% - 66px);;
 }
-body.fu-dragover #upload_indicator {
+div.fu-dragover #upload_indicator {
   position:absolute;
   top:68px;
   left:1%;
@@ -21,7 +21,7 @@ body.fu-dragover #upload_indicator {
   height: calc(98% - 66px);;
   
 }
-body.fu-dragover #upload_indicator:after {
+div.fu-dragover #upload_indicator:after {
   content:"Drop files to upload";
   color:white;
   font-size:250%;
@@ -33,7 +33,7 @@ body.fu-dragover #upload_indicator:after {
   margin-left:-100px;
   margin-top:-20px;
 }
-body.fu-dragover .buttons_and_search {
+div.fu-dragover .buttons_and_search {
   opacity:0.1;
 }
 
