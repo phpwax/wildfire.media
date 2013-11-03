@@ -12,13 +12,13 @@ div.fu-dragover #upload_indicator_wrapper {
 }
 div.fu-dragover #upload_indicator {
   position:absolute;
-  top:68px;
+  top:55px;
   left:1%;
   z-index:9999;
   border:7px dashed #FFF;
   width:98%;
   height:98%;
-  height: calc(98% - 66px);;
+  height: calc(98% - 55px);;
   
 }
 div.fu-dragover #upload_indicator:after {
