@@ -13,7 +13,7 @@ jQuery(document).ready(function($){
 			"right"		: "0px",
 			"z-index"	: "9999"
 		});
-		$("body div").wrapAll(droptarget);
+		$("body #outer").wrapAll(droptarget);
 
 		jQuery.event.props.push("dataTransfer");
 		var drop_area = jQuery("#file-drop-target"),
