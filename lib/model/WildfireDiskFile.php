@@ -156,7 +156,7 @@ class WildfireDiskFile{
       $filename = $options["filename"] ?: basename($stream);
     } elseif(is_string($stream) && strlen($stream) > 1) {
       $file_data = $stream;
-      $filename = $options["filename"] ?: time();
+      $filename = $options["filename"] ?: time().rand(0,99);
     }
     
     if($filename && $file_data) {
