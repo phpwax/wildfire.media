@@ -23,6 +23,7 @@ jQuery(document).ready(function($){
           progress_bar.find("span").data("progress-loaded",evt.loaded)
           progress_bar.find("span").data("progress-total",evt.total);
           jQuery(window).trigger("file.upload.progress", [evt]);
+          console.log(evt);
         }
 			}, false);
 			//loaded event
@@ -132,3 +133,49 @@ jQuery(document).ready(function($){
 		//$(".drop-area").hide();
 	}
 });
+
+var wildfire_upload = {
+
+	settings: {
+		"destination": "/admin/media/upload/",
+		"progress":    this.progress,
+		"load":        this.load,
+		"eventName":   Date.now()
+	},
+
+	init: function(settings) {
+		if(settings && typeof(settings) == 'object') {
+  		$.extend(this.settings, settings);
+  	}
+  },
+
+  upload: function(file) {
+  	var xhr = new XMLHttpRequest();
+		xhr.addEventListener("progress", this.settings.progress);
+		xhr.addEventListener("load", this.settings.load);
+		xhr.open("post", this.settings.destination, true);
+		xhr.setRequestHeader("Content-Type", "multipart/form-data");
+		xhr.setRequestHeader("X-File-Name", file.name);
+		xhr.setRequestHeader("X-File-Size", file.size);
+		xhr.setRequestHeader("X-File-Type", file.type);
+		xhr.setRequestHeader("X-File-EventTimestamp", this.settings.eventName);
+		xhr.send(file);
+  },
+
+  progress: function(event) {
+  	console.log(event);
+  },
+
+  load: function(response) {
+  	console.log(response);
+  }
+
+
+}
+
+
+
+
+
+
+
