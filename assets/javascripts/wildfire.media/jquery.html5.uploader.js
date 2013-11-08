@@ -171,7 +171,7 @@ var wildfire_upload = {
   }
 
 
-}
+};
 
 
 

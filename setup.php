@@ -1,4 +1,4 @@
-<?
+<?php
 CMSApplication::register_module("media", array("display_name"=>"Media", "link"=>"/admin/media/", 'split'=>true));
 CMSApplication::register_asset("wildfire", "js", "wildfire.media");
 CMSApplication::register_asset("wildfire", "css", "wildfire.media");
@@ -31,4 +31,3 @@ WildfireMedia::$allowed  = array(
                             'webp'=>'WildfireDiskFile'
                           );
 
-?>
