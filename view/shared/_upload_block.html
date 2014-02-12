@@ -1,14 +1,28 @@
 <div id="upload_indicator"></div>
 <div id="upload_indicator_wrapper"></div>
-<div 
-  class='uploading_container' 
-  id="main-upload-dialog" 
-  data-allowed-check="/<?=trim($controller, "/")?>/file_check" 
+<div
+  class='uploading_container'
+  id="main-upload-dialog"
+  data-allowed-check="/<?=trim($controller, "/")?>/file_check"
   data-html5-action='/<?=trim($controller,"/")?>/upload/'
 >
 
   <div class='data_info'>
-    <div class="collection-name">
+    <?
+    $mediamodel = false;
+    if(($handlers = CMSApplication::$handlers['media']) && ($classname = $handlers[0]) ) $mediamodel = new $classname;
+    ?>
+    <div class="collection-name <?if($mediamodel):?>with-exisiting<?endif?>">
+      <?if($mediamodel):?>
+        <label>Select existing</label>
+        <select name="category_tagging" class='existing_event_names unstyled_select'>
+          <option value=''>-- SELECT --</option>
+          <?foreach($mediamodel->event_names() as $name):?>
+            <option value='<?=urlencode($name)?>'><?=$name?></option>
+          <?endforeach?>
+        </select>
+        <br><label>or create new</label>
+      <?endif?>
       <input type="text" name="category" value="" placeholder="Collection Name" class='category_tagging'>
       <a class="button collection-save" data-action="/<?=trim($controller,"/")?>/media_name/">Save</a>
     </div>
@@ -21,7 +35,7 @@
     <div class='file-list drop-list clearfix'></div>
   </div>
   <a class="button finish-button">Finish</a>
-  
+
 </div>
 
 <div class='uploading_container' id="old-upload-dialog">

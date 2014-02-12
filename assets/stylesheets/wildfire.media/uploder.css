@@ -19,7 +19,7 @@
   width:98%;
   height:98%;
   height: calc(98% - 55px);;
-  
+
 }
 .fu-dragover #upload_indicator:after {
   content:"Drop files to upload";
@@ -52,6 +52,13 @@
   width:75%;
   text-align:center;
   margin:5px auto;
+}
+
+.with-exisiting label{
+  display:block;
+  width:100%;
+  text-align: center;
+  padding:4px 0;
 }
 
 .uploading_container .in-progress-message p {

@@ -115,6 +115,11 @@ class WildfireMedia extends WaxModel{
     else return false;
   }
 
+  public function event_names(){
+    $data = array();
+    foreach($this->group("event_name")->filter("LENGTH(event_name) > 0")->all() as $r) $data[] = $r->event_name;
+    return $data;
+  }
   public function name_event($timestamp, $name) {
     $media = new WildfireMedia;
     $items = $media->filter("event_timestamp",$timestamp)->all();
@@ -155,7 +160,7 @@ class WildfireMedia extends WaxModel{
 
   public function get_operations($permissions,$join_ids){
     $operations = $permissions;
-    
+
     if($this->media_class){
       $media = new $this->media_class;
       if($media->operations) foreach($media->operations as $operation) $operations[$operation] = 1;
