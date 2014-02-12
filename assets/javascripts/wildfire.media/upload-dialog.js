@@ -7,6 +7,7 @@ $(document).ready(function() {
     width:"600px",
     open: function(){
       $("#main-upload-dialog .collection-name").show();
+      $("#main-upload-dialog .existing_event_names, #main-upload-dialog .category_tagging").val("");
     }
   });
 
