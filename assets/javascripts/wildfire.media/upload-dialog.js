@@ -4,12 +4,16 @@ $(document).ready(function() {
     autoOpen: false,
     modal: true,
     dialogClass: "wildfire-upload",
-    width:"600px"
+    width:"600px",
+    open: function(){
+      $("#main-upload-dialog .collection-name").show();
+    }
   });
 
   $(window).bind("file.upload.list_add", function() {
+
     $("#main-upload-dialog").dialog("open");
-    $("#main-upload-dialog .event-info").data("event-name", new Date().getTime())
+    $("#main-upload-dialog .event-info").data("event-name", new Date().getTime());
   });
 
 
@@ -24,7 +28,7 @@ $(document).ready(function() {
       },
       function(){
        $(".collection-name").hide();
-       $("#main-upload-dialog .file-collection-name").text(cat_name);
+       //$("#main-upload-dialog .file-collection-name").text(cat_name);
        $("#main-upload-dialog .finish-button").show().unbind("click").click(function(){
          $(".collection-name .collection-save").click();
          dialog_reset();
