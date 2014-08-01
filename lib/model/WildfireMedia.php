@@ -172,7 +172,7 @@ class WildfireMedia extends WaxModel{
   }
 
   public function operation($name, $x){
-    if($name == "link") return "<a href='/".$this->source."' class='button operation operation_link'>Link</a>";
+    if($name == "link") return "<a href='/".$this->source."' class='button operation operation_link'><b class='entypo-icon'></b></a>";
   }
 
 }
