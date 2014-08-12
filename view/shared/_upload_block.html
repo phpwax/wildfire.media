@@ -18,7 +18,7 @@
         <select name="category_tagging" class='existing_event_names unstyled_select'>
           <option value=''>-- SELECT --</option>
           <?foreach($mediamodel->event_names() as $name):?>
-            <option value='<?=urlencode($name)?>'><?=$name?></option>
+            <option value='<?=$name?>'><?=$name?></option>
           <?endforeach?>
         </select>
         <br><label>or create new</label>
