@@ -136,7 +136,6 @@
 }
 
 .media-listing-item .media-operations {
-  display:none;
   right:0px;
   top:0px;
   width:100%;
@@ -147,11 +146,6 @@
   background:rgba(0,0,0,0.2);
   padding:2px 15px 0 4px;
 }
-.media-listing-item .media-operations a {
-  visibility:hidden;
-  width:17px;
-  margin-left:2px;
-}
 .media-listing-item span.title{
   height:24px;
   padding:4px;
@@ -160,35 +154,41 @@
   font-size:85%;
   display: block;
 }
-.media-operations .operation:before {
+.media-listing-item .media-operations .operation {
   visibility:visible;
   border-radius:2px;
   background:#222;
+  margin-left:2px;
   content:" ";
   width:20px;
   height:20px;
-  display:block;
-  color:#FFF;
+  overflow:hidden;
+  padding:0;
   text-align:center;
+}
+.media-listing-item .media-operations .operation b{
   font-family:"Entypo";
+  color:#FFF;
   font-size:20px;
   font-weight:normal;
   vertical-align:middle;
   line-height:20px;
+  margin:0;
+  display:inline;
 }
-.media-operations .operation_edit:before{
+.media-operations .operation_edit b:before{
   content:"✎";
 }
-.media-operations .operation_add:before{
+.media-operations .operation_add b:before{
   content:"➕";
 }
-.media-operations .operation_remove:before{
+.media-operations .operation_remove b:before{
   content:"➖";
 }
-.media-operations .operation_download:before {
+.media-operations .operation_download b:before {
   content:"📥";
 }
-.media-operations .operation_link:before {
+.media-operations .operation_link b:before {
   content:"🔗";
 }
 

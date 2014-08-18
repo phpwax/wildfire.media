@@ -6,7 +6,7 @@
         $operation_actions = $media->get_operations($permissions,$joined_ids);
         $operation_actions["remove"] = 1;
       ?>
-      <?=partial("_operations", array("current_user"=>$current_user, 'operation_actions'=>array(), "controller"=>$controller, "action"=>$action, "row"=>$media, 'permissions'=>$operation_actions))?>
+      <?=partial("_operations", array("current_user"=>$current_user, 'operation_actions'=>array(), "controller"=>$controller, "action"=>$action, "row"=>$media, 'permissions'=>$operation_actions, "icons"=>true))?>
     </div>
     <?=$media->render(172)?>
   </div>
