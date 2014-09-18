@@ -80,7 +80,7 @@ class WildfireDiskFile{
 
   //generates the tag to be displayed - return generic icon if not an image
   public function render($media_item, $size, $title="preview", $class=""){
-    if(!strstr($media_item->file_type, "image")) return "<img src='/images/wildfire/themes/v2/files_document.png' alt='".$title."' class='".$class."'>";
+    if(!strstr($media_item->file_type, "image")) return "<img src='/images/wildfire/icons/document.png' alt='".$title."' class='".$class."'>";
     else return "<img src='".$this->get($media_item, $size)."' alt='".$title."' class='".$class."'>";
   }
 
@@ -141,13 +141,13 @@ class WildfireDiskFile{
 
     return $info;
   }
-  
-  
+
+
   /**
    * Takes a file stream and additional options to upload a new file
    *
    * @param string $stream / detects filename, stream, data
-   * @param string $options ("destination","file_type") 
+   * @param string $options ("destination","file_type")
    * @return created object
    */
   public function upload($stream, $options = array()) {
@@ -158,7 +158,7 @@ class WildfireDiskFile{
       $file_data = $stream;
       $filename = $options["filename"] ?: time().rand(0,99);
     }
-    
+
     if($filename && $file_data) {
       if(!$options["destination"]) $options["destination"] = dirname($this->generate_fs_path($filename))."/";
       $final_location = $options["destination"].$filename;
@@ -169,36 +169,36 @@ class WildfireDiskFile{
     }
     return false;
   }
-  
+
   public function get_meta($filename, $data, $final_location) {
     $meta["title"] = basename($filename, ".".$this->get_extension($filename));
     $meta["file_type"] = $this->get_filetype($data);
     $meta["media_class"] = get_class($this);
     $meta["hash"] = hash_hmac('sha1', $data, md5($data));
     $meta["ext"] = $this->get_extension($filename);
-    $meta["uploaded_location"] = str_replace(PUBLIC_DIR, "", $final_location);    
+    $meta["uploaded_location"] = str_replace(PUBLIC_DIR, "", $final_location);
     $meta["source"] = $meta["uploaded_location"];
-    $meta["status"] = 1;    
+    $meta["status"] = 1;
     return $meta;
   }
-  
+
   public function generate_fs_path($filename) {
     $path = PUBLIC_DIR. "files/".date("Y-m-W")."/";
     if(!is_dir($path)) mkdir($path, 0777, true);
     $filename = File::safe_file_save($path, $filename);
     return $path.$filename;
   }
-  
+
   public function get_filetype($data) {
     $finfo = new \finfo(FILEINFO_MIME_TYPE);
     return $finfo->buffer($data);
   }
-  
+
   public function get_extension($filename) {
     return pathinfo($filename, PATHINFO_EXTENSION);
   }
 
-  
+
 
 
 }

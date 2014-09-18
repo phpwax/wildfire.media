@@ -17,6 +17,7 @@ wildfire_media.prototype.init = function() {
 wildfire_media.prototype.load = function(replace) {
   var controller = this,
       marker = controller.template.find(".media-listing-container .page-marker:last").addClass("loading");
+      controller.template.data("loading",true);
 
   $.ajax({
     url: "/admin/media/index.ajax?page="+controller.page,
@@ -38,6 +39,7 @@ wildfire_media.prototype.load = function(replace) {
         var controller = event.data.controller;
         controller.infiniteScroll(controller);
       });
+      controller.template.data("loading",false);
    },
     error: function() {
       controller.template.find(".media-listing-wrapper").bind("scroll.infiniteScroll",{controller:controller},function(event){
@@ -137,7 +139,7 @@ wildfire_media.prototype.setupUI = function() {
 };
 wildfire_media.prototype.bindMediaEvents = function() {
   var controller = this;
-  this.calculateImageRatios();
+  controller.calculateImageRatios();
   controller.template.find(".media-listing-item").hoverIntent(
     function(){$(this).toggleClass("hovered");},
     function(){$(this).toggleClass("hovered");}
@@ -163,14 +165,19 @@ wildfire_media.prototype.infiniteScroll = function(controller) {
   wrapper.find(".media-listing-container").each(function(){
     block_height += jQuery(this).height();
   });
+  if(controller.template.data("loading") == true) return;
   if(wrapper.scrollTop() + wrapper.height() >= block_height) {
     wrapper.unbind("scroll.infiniteScroll");
     var last_page_marker = controller.template.find(".media-listing-container .page-marker:last"),
-        current = last_page_marker.data("current-page");
+        current = last_page_marker.data("current-page"),
+        total = last_page_marker.data("total-pages");
 
-    if(current < last_page_marker.data("total-pages")){
+    if(current < total){
       controller.page = current + 1;
       controller.load();
+    }
+    if(current == total){
+      last_page_marker.remove();
     }
   }
 };

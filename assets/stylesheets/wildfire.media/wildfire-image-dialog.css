@@ -60,3 +60,20 @@
   background:#f0f0f0;
   border:0;
 }
+
+
+.ui-dialog-tinymce .tabs_container{
+  background:none;
+  border-width:0;
+}
+.ui-dialog-tinymce .tabs_nav{
+  padding:0;
+}
+.ui-dialog-tinymce .tabs_nav li.ui-state-active a{
+  background:#fff;
+  border-width: 0;
+}
+.ui-dialog-tinymce .tab-contents{
+  padding:10px;
+  background:#fff;
+}
