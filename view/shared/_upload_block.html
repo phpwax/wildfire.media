@@ -26,8 +26,10 @@
 
 <div class='uploading_container' id="old-upload-dialog">
   <div class="old_file_upoad_holder">
-    <label for="old_file_upload">Choose a file</label>
-    <input type="file" multiple id="old_file_upload" name="upload">
-    <input type="submit" value="Upload">
+    <form action="/<?=trim($controller,"/")?>/upload/" method="post">
+      <label for="old_file_upload">Choose a file</label>
+      <input type="file" multiple id="old_file_upload" name="upload">
+      <input type="submit" value="Upload">
+    </form>
   </div>
 </div>
