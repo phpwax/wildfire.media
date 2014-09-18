@@ -129,8 +129,8 @@ jQuery(document).ready(function($){
 			jQuery(window).trigger("file.upload.all", [e.dataTransfer.files, jQuery(this), list_area]);
 		});
 	}else{
-		//old school html forms file uploads
-		//$(".drop-area").hide();
+		$(".old_file_upoad_holder").show();
+		$("#old-upload-dialog").show();
 	}
 });
 
