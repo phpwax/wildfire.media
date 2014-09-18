@@ -40,7 +40,7 @@
 
 <div class='uploading_container' id="old-upload-dialog">
   <div class="old_file_upoad_holder">
-    <form action="/<?=trim($controller,"/")?>/upload/" method="post">
+    <form action="/<?=trim($controller,"/")?>/upload/" method="post" enctype="multipart/form-data">
       <label for="old_file_upload">Choose a file</label>
       <input type="file" multiple id="old_file_upload" name="upload">
       <input type="submit" value="Upload">
