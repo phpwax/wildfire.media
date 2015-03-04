@@ -23,7 +23,7 @@ jQuery(document).ready(function($){
           progress_bar.find("span").data("progress-loaded",evt.loaded)
           progress_bar.find("span").data("progress-total",evt.total);
           jQuery(window).trigger("file.upload.progress", [evt]);
-          console.log(evt);
+          //console.log(evt);
         }
 			}, false);
 			//loaded event
