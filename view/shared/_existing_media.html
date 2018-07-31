@@ -1,4 +1,4 @@
-<div class='joined-file clearfix f_<?=$field?>_<?=$media->primval?> <?=$media->groups()?>' data-primval="<?=$media->primval?>">
+<div class='joined-file clearfix f_<?=$field?>_<?=$media->primval?> <?=Inflections::to_url($media->groups())?>' data-primval="<?=$media->primval?>">
   <div class="media-listing-item" data-primval="<?=$media->primval?>">
     <div class="media-operations">
       <?
